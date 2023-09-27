@@ -1,0 +1,136 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    overflow-x: hidden;
+}
+header {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.122);
+}
+header a{
+    display: flex;
+    text-decoration: none;
+    color: blue;
+}
+header a .logo i{
+font-size: 40px;
+}
+
+header a .titulo span{
+    font-size: 20px;
+    display: block;
+}
+
+nav{
+    margin: 20px 0;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+nav .agregarDoc{
+    margin-right: 1em;
+}
+.agregarDoc button{
+    padding: 10px 15px;
+transition: all .3s ease-in;
+    background-color: blue;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    border: none;
+}
+.agregarDoc:hover button{
+    background-color: white;
+    color: blue;
+    outline: 1px solid blue;
+    cursor: pointer;
+}
+nav .filtrar{
+    padding: 0 1rem;
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    color: blue;
+}
+.filtrar input{
+outline: none;
+border: none;
+border-bottom: 1px solid gray;
+padding: 5px 10px;
+background: rgba(159, 159, 159, 0.122);
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container table{
+    width: 90%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.122);
+}
+
+.container table thead tr th{
+    border-bottom: 1px solid blue;
+    padding: .5rem 0;
+}
+.container table thead tr #telefono{
+    width: 10rem;
+}
+
+.container table tbody tr td{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.122);
+}
+.container table tbody tr td{
+    padding: 1rem;
+    text-align: center;
+
+}
+
+form{
+    display: block;
+    position: absolute;
+    transition:all .4s ease-in;
+    transform: translateX(-1000px); 
+    padding: 20px;
+    top: 50%;
+    background-color: white;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+form label{
+    font-family: monospace;
+}
+
+form input{
+    border: none;
+    border-bottom: 1px solid blue;
+    outline: none;
+    background-color: rgba(159, 159, 159, 0.122);
+    padding: 5px 2px;
+}
+
+
+form input[type="submit"]{
+    background-color: blue;
+    padding: 10px 15px;
+    border-radius:5px;
+    color: white;
+    border:none;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.122);
+    transition: all .3s ease-in;
+}
+
+form input[type="submit"]:hover{
+    color: blue;
+    outline: 1px solid blue;
+    cursor: pointer;
+    background-color: white;
+}
