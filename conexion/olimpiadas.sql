@@ -19,6 +19,7 @@ SET time_zone = "+00:00";
 
 --
 -- Base de datos: `olimpiadas`
+CREATE DATABASE olimpiadas;
 --
 
 -- --------------------------------------------------------
