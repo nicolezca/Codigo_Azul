@@ -9,7 +9,7 @@ $doctores = array(); // Creamos un arreglo para almacenar los datos de los médi
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $identificaciones[] = $row['id'];
-        $doctores[] = $row['nombre'];
+        $enfermeros[] = $row['nombre'];
         $apellidos[] = $row['apellido'];
         $cargos[] = $row['cargo'];
         $matriculas[] = $row['matricula'];
@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/styles.css">
-    <title>Listado de Doctores</title>
+    <title>Enfermeros</title>
 </head>
 
 <body>
@@ -65,7 +65,7 @@ if ($result->num_rows > 0) {
                 <?php foreach ($identificaciones as $key => $id) : ?>
                     <tr>
                         <td><?php echo $id; ?></td>
-                        <td><?php echo $doctores[$key]; ?></td>
+                        <td><?php echo $enfermeros[$key]; ?></td>
                         <td><?php echo $apellidos[$key]; ?></td>
                         <td><?php echo $cargos[$key]; ?></td>
                         <td><?php echo $matriculas[$key]; ?></td>
@@ -94,7 +94,7 @@ if ($result->num_rows > 0) {
         <label for="matricula">Matrícula del Enfermero:</label>
         <input type="text" id="matricula" name="matricula" required autocomplete="off"><br><br>
         
-        <input type="submit" value="Agregar Doctor">
+        <input type="submit" value="Agregar enfermero">
     </form>
 
 </body>

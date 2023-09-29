@@ -37,9 +37,9 @@ include('../conexion/conexion.php');
     </div>
     <div class="btn-seccion">
         <div class="card">
-            <a href="">
+            <a href="../pages/salas.php">
                  <i class='bx bx-bed'></i>
-                <span>habitaciones disponibles</span>
+                <span>Salas</span>
             </a>
         </div>
         <div class="card">

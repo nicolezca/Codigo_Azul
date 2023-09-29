@@ -9,33 +9,34 @@ btnform.addEventListener("click", function () {
     }
 });
 
-
 document.addEventListener("DOMContentLoaded", function () {
-    const filterInput = document.getElementById("filter");
-    const tabla = document.getElementById("Tabla");
-    const filas = tabla.getElementsByTagName("tr");
+    const filterDniInput = document.getElementById("filter_dni");
+    const filterEstadoSelect = document.getElementById("filter_estado");
+    const aplicarFiltroButton = document.getElementById("aplicarFiltro");
+    const tablaResultado = document.getElementById("Tabla").getElementsByTagName('tbody')[0];
 
-    filterInput.addEventListener("input", function () {
-        const filtro = this.value.toLowerCase();
+    aplicarFiltroButton.addEventListener("click", function () {
+        const dni = filterDniInput.value.toLowerCase();
+        const estado = filterEstadoSelect.value.toLowerCase();
 
-        for (let i = 1; i < filas.length; i++) {
-            const celdas = filas[i].getElementsByTagName("td");
-            let coincide = false;
+        filtrarTabla(dni, estado);
+    });
 
-            for (let j = 0; j < celdas.length; j++) {
-                const textoCelda = celdas[j].textContent.toLowerCase();
+    function filtrarTabla(dni, estado) {
+        const filas = tablaResultado.getElementsByTagName("tr");
 
-                if (textoCelda.includes(filtro)) {
-                    coincide = true;
-                    break;
-                }
-            }
+        for (let i = 0; i < filas.length; i++) {
+            const fila = filas[i];
+            const columnas = fila.getElementsByTagName("td");
 
-            if (coincide) {
-                filas[i].style.display = "";
+            const dniColumna = columnas[3].textContent.toLowerCase(); // Columna de DNI
+            const estadoColumna = columnas[7].textContent.toLowerCase(); // Columna de Estado
+
+            if ((dniColumna.includes(dni) || dni === "") && (estadoColumna.includes(estado) || estado === "")) {
+                fila.style.display = "table-row";
             } else {
-                filas[i].style.display = "none";
+                fila.style.display = "none";
             }
         }
-    });
+    }
 });

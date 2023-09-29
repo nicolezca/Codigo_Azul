@@ -100,7 +100,7 @@ form{
     transition:all .4s ease-in;
     transform: translateX(-1000px); 
     padding: 20px;
-    top: 50%;
+    top: 30%;
     background-color: white;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
