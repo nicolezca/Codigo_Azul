@@ -13,10 +13,10 @@ Este repositorio contiene información detallada sobre la planificación, diseñ
 El repositorio está organizado de la siguiente manera:
 
 - `conexion/`: Contiene archivos relacionados a la conexion con la base de datos.
+- `img/`: Contiene imágenes y recursos visuales utilizados en el proyecto.
 - `inicio/`: Aquí encontrarás archivos con la seccion principal del hospital
 - `login/`: Contiene archivos relacionados con el inicio de seseion y registro del hospital..
 - `pages/`: Contiene archivos y carpetas para cada seccion individual del hospital
-- `img/`: Contiene imágenes y recursos visuales utilizados en el proyecto.
 
 ## Planificación y Organización
 
