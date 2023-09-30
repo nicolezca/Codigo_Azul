@@ -1,10 +1,12 @@
-# Proyecto Hospital
+# Proyecto Hospital PixelPionners
 
-Bienvenido al proyecto Hospital . Este repositorio contiene información detallada sobre la planificación, diseño y desarrollo de un hospital ficticio llamado Hospital XYZ.
+Bienvenido al proyecto Hospital . Este repositorio contiene información detallada sobre la planificación, diseño y desarrollo de un hospital ficticio llamado Hospital PixelPionners.
 
 ## Descripción del Proyecto
 
-El objetivo de este proyecto es crear un modelo 3D y un plano detallado para el Hospital . Esto incluye la representación visual del hospital en forma de modelo 3D y un plano que muestra la disposición de cada estructura y sus divisiones funcionales.
+Este proyecto es parte de un esfuerzo más amplio de informatización y automatización en entidades hospitalarias públicas. En este contexto, la Municipalidad de una ciudad en la provincia de Tucumán ha lanzado una licitación pública dirigida a empresas PYME locales. El propósito de esta licitación es desarrollar e implementar un sistema que mejore significativamente el proceso de atención de emergencias médicas denominadas "ALARMA CÓDIGO AZUL".
+
+Este repositorio contiene información detallada sobre la planificación, diseño y desarrollo de un hospital ficticio llamado Hospital PixelPionners. 
 
 ## Contenido del Repositorio
 
@@ -38,7 +40,7 @@ Si encuentras problemas o tienes alguna pregunta relacionada con el proyecto, no
 
 ## Créditos
 
-Este proyecto fue desarrollado por [Lezcano Agustin], [Marquez Agostina], [Juan Rouco], [Violeta St'esteben] y [Ghillia Belen].
+Este proyecto fue desarrollado por #Lezcano Agustin, #Marquez Agostina, #Juan Rouco#, #Violeta St'esteben y #Ghillia Belen.
 
-¡Gracias por visitar el proyecto Hospital!
+¡Gracias por visitar el proyecto Hospital PixelPionners!
 
