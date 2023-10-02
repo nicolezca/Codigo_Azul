@@ -5,6 +5,7 @@
 }
 
 body{
+    overflow: hidden;
     background-color: rgba(239, 237, 237, 0.589);
 }
 
@@ -15,7 +16,7 @@ html{
 .header{
     display:flex;
     justify-content: center;
-    padding: 20px 10px;
+    padding: 10px 10px;
     align-items: center;
     flex-direction: column;
 }
@@ -34,8 +35,16 @@ html{
     font-size: 20px;
     color: blue;
 }
-
-
+.header .btn-emergencia{
+    margin-top: 10px;
+}
+.header .btn-emergencia button{
+    background: blue;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+}
 .header .navegacion{
     display: flex;
     justify-content: center;
@@ -77,7 +86,7 @@ html{
     justify-content: center;
     align-items: center;
     position: relative;
-    top: -6rem;
+    top: -8rem;
     gap: 1rem;
     transition: all .3s ease-in;
 }

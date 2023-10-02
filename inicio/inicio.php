@@ -26,6 +26,9 @@ include('../conexion/conexion.php');
                 <span>Hospital</span>
             </div>
         </div>
+        <div class="btn-emergencia">
+            <button>Emergencia</button>
+        </div>
         <nav class="navegacion">
             <a href="../pages/doctores.php">Doctores</a>
             <a href="../pages/enfermeros.php">Enfermeros</a>
@@ -61,6 +64,10 @@ include('../conexion/conexion.php');
             </a>
         </div>
     </div>
+
+    <form action="" method="post">
+        
+    </form>
 </body>
 
 </html>
