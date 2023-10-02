@@ -17,6 +17,7 @@ El repositorio está organizado de la siguiente manera:
 - `inicio/`: Aquí encontrarás archivos con la seccion principal del hospital
 - `login/`: Contiene archivos relacionados con el inicio de seseion y registro del hospital..
 - `pages/`: Contiene archivos y carpetas para cada seccion individual del hospital
+- `pdf/`: contiene un archivo paso a paso detalladamente todo lo llevado hasta el momento del proyecto 
 
 ## Planificación y Organización
 
