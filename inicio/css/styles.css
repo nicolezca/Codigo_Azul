@@ -5,8 +5,8 @@
 }
 
 body{
-    overflow: hidden;
     background-color: rgba(239, 237, 237, 0.589);
+    overflow-x: hidden;
 }
 
 html{
@@ -128,3 +128,51 @@ html{
 .btn-seccion .card:hover a{
     color: white;
 }
+
+
+
+/* Estilo general del formulario */
+#formularioSala {
+    position: absolute;
+    top: 10%;
+    right: -100%;
+    z-index: 999;
+    box-shadow: 0 0 15px black;
+    background-color: #fff;
+    color: #000;
+    padding: 20px;
+    width: 300px; /* Ajusta el ancho según tus preferencias */
+    margin: 0 auto; /* Centra el formulario horizontalmente */
+    transition: .5s ease-in ;
+}
+
+/* Estilo para etiquetas */
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Estilo para campos de entrada y selección */
+input[type="date"],
+select {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    margin-bottom: 10px;
+    background-color: transparent; /* Fondo transparente */
+}
+
+/* Estilo para el botón */
+input[type="submit"] {
+    background-color: #007bff; /* Fondo azul */
+    color: #fff; /* Letras blancas */
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Cambia el cursor al pasar el mouse sobre el botón */
+input[type="submit"]:hover {
+    background-color: #0056b3; /* Color de fondo más oscuro al pasar el mouse */
+}
+

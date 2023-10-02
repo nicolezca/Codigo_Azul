@@ -1,5 +1,5 @@
 <?php
-include('../conexion/conexion.php');
+    include('../conexion/conexion.php');
 
 ?>
 
@@ -26,8 +26,8 @@ include('../conexion/conexion.php');
                 <span>Hospital</span>
             </div>
         </div>
-        <div class="btn-emergencia">
-            <button>Emergencia</button>
+        <div class="btn-emergencia" >
+            <button id="btnLlamado">Emergencia</button>
         </div>
         <nav class="navegacion">
             <a href="../pages/doctores.php">Doctores</a>
@@ -65,9 +65,76 @@ include('../conexion/conexion.php');
         </div>
     </div>
 
-    <form action="" method="post">
-        
-    </form>
-</body>
 
+
+    <form id="formularioSala" action="php/alerta.php" method="POST">
+        <label for="sala">Selecciona una Sala:</label>
+        <select name="sala" id="sala">
+            <?php
+            // Consulta para obtener las salas disponibles
+            $sql = "SELECT id, nombre FROM sala WHERE disponible = '1'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . "</option>";
+                }
+            } else {
+                echo "<option value=''>No hay salas disponibles</option>";
+            }
+            ?>
+        </select>
+        <label for="paciente">Selecciona una Sala:</label>
+        <select name="paciente" id="paciente">
+            <?php
+            // Consulta para obtener las salas disponibles
+            $sql = "SELECT id, nombre FROM paciente WHERE estado = 'espera'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . "</option>";
+                }
+            } else {
+                echo "<option value=''>No hay salas disponibles</option>";
+            }
+            ?>
+        </select>
+        <label for="fechaInicio">Fecha de Inicio:</label>
+        <input type="date" name="fechaInicio" id="fechaInicio" required>
+
+        <label for="fechaFin">Fecha de Fin:</label>
+        <input type="date" name="fechaFin" id="fechaFin" required>
+
+        <label for="prioridad">Prioridad de Llamado:</label>
+        <select name="prioridad" id="prioridad">
+            <option value="Alta">Normal</option>
+            <option value="Baja">Emergencia</option>
+        </select>
+
+        <label for="personal">Personal a asignar:</label>
+        <select name="personal" id="personal">
+            <?php
+            // Consulta para obtener las salas disponibles
+            $sql = "SELECT id, nombre FROM personal";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . "</option>";
+                }
+            } else {
+                echo "<option value=''>No hay salas disponibles</option>";
+            }
+            ?>
+        </select>
+
+
+        <input type="submit" value="hacer llamado">
+    </form>
+
+
+    
+</body>
+<script src="js/main.js"></script>
 </html>
