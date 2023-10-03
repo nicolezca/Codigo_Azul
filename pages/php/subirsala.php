@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nombre"]) && isset($_P
     $tipo = $_POST["tipo"];
     $capacidad = $_POST["capacidad"];
     $ocupacion = $_POST["ocupacion"];
-
+    
 
     // Validar los campos de registro
     if (empty($nombre) || empty($piso) || empty($estado) || empty($tipo) || empty($capacidad) || empty($ocupacion)  ) {

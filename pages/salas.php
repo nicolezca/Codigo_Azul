@@ -66,10 +66,10 @@ if ($result->num_rows > 0) {
                         <th>identificacion</th>
                         <th>sala</th>
                         <th>piso</th>
-                        <th>estado</th>
                         <th>tipo</th>
                         <th id="telefono">capacidad Maxima</th>
                         <th>ocupacion actual</th>
+                        <th>estado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,10 +78,10 @@ if ($result->num_rows > 0) {
                             <td><?php echo $id; ?></td>
                             <td><?php echo $salas[$key]; ?></td>
                             <td><?php echo $pisos[$key]; ?></td>
-                            <td><?php echo $estado[$key]; ?></td>
                             <td><?php echo $tipo[$key]; ?></td>
                             <td><?php echo $capacidadM[$key]; ?></td>
                             <td><?php echo $ocupacion[$key]; ?></td>
+                            <td><?php echo $estado[$key]; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
