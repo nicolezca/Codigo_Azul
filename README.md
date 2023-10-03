@@ -34,7 +34,7 @@ Si encuentras problemas o tienes alguna pregunta relacionada con el proyecto, no
 
 ## Créditos
 
-Este proyecto fue desarrollado por ##`Lezcano Agustin` ,`Marquez Agostina`, ##`Juan Rouco`, ##`Violeta St'esteben` y ##`Ghillia Belen`
+Este proyecto fue desarrollado por ## `Lezcano Agustin` , ## `Marquez Agostina`, ## `Juan Rouco`, ## `Violeta St'esteben` y ## `Ghillia Belen`
 
 ¡Gracias por visitar el proyecto Hospital PixelPionners!
 
