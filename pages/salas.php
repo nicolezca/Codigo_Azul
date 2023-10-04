@@ -49,6 +49,7 @@ if ($result->num_rows > 0) {
         <div class="filtrar">
             <i class='bx bx-filter-alt'></i>
             <input type="search" name="filter_dni" id="filter_dni" placeholder="Buscar por nombre">
+            <!-- falta hacer el filtro por estado de cada sala -->
             <select name="filter_estado" id="filter_estado">
                 <option value="">Todos</option>
                 <option value="ocupada">ocupada</option>

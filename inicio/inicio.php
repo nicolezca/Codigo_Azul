@@ -91,9 +91,9 @@ include('../conexion/conexion.php');
             ?>
         </select>
 
-        <!-- se le asigna un personal -->
+        <!-- Se le asigna personal -->
         <label for="personal">Personal a asignar:</label>
-        <select name="personal" id="personal">
+        <select name="personal" id="personal" >
             <?php
             // Consulta para obtener personal
             $sql = "SELECT id, nombre, tipo, cargo FROM personal";
@@ -101,7 +101,7 @@ include('../conexion/conexion.php');
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "<option value='" . $row['id'] . "'>" . $row['nombre'], ' ', $row['tipo'], ' ', $row['cargo'] . "</option>";
+                    echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . ' ' . $row['tipo'] . ' ' . $row['cargo'] . "</option>";
                 }
             } else {
                 echo "<option value=''>No hay personal disponibles</option>";
@@ -131,9 +131,6 @@ include('../conexion/conexion.php');
 
         <input type="submit" value="hacer llamado">
     </form>
-
-
-
 </body>
 <script src="js/main.js"></script>
 
