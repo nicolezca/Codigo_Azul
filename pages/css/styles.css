@@ -98,7 +98,7 @@ form{
     display: block;
     position: absolute;
     transition:all .4s ease-in;
-    transform: translateX(-1000px); 
+    transform: translateX(-100%); 
     padding: 20px;
     top: 30%;
     background-color: white;
