@@ -20,11 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nombre"]) && isset($_P
             $sql = "INSERT INTO paciente (nombre, apellido, dni, telefono, obraSocial, historiaClinica, estado ) VALUES ('$nombre', '$apellido', '$dni', '$telefono','$social', '$historial', '$estado')";
 
             if ($conn->query($sql) === TRUE) {
-                header("Location: ../paciente.php");
+                header("Location: ../pacientes.php");
                 exit();
             } else {
                 echo "Error en el registro: " . $conn->error;
-                echo '<a href="../paciente.php">Volver a intentar</a>';
+                echo '<a href="../pacientes.php">Volver a intentar</a>';
             }
         }
 }

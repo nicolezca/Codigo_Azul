@@ -21,7 +21,7 @@ if ($result->num_rows > 0) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -84,7 +84,7 @@ if ($result->num_rows > 0) {
                             <td><?php echo $dni[$key]; ?></td>
                             <td><?php echo $telefonos[$key]; ?></td>
                             <td><?php echo $sociales[$key]; ?></td>
-                            <td><?php echo $historiales[$key]; ?></td>
+                            <td style="text-align:start;"><?php echo $historiales[$key]; ?></td>
                             <td><?php echo $estados[$key]; ?></td>
                         </tr>
                     <?php endforeach; ?>
@@ -118,8 +118,11 @@ if ($result->num_rows > 0) {
         <input type="text" id="historial" name="historial" required autocomplete="off"><br><br>
 
         <label for="historial">Estado del paciente:</label>
-        <input type="text" id="estado" name="estado" required autocomplete="off"><br><br>
-
+        <select name="estado" id="estado">
+            <option value="alta">alta</option>
+            <option value="baja">baja</option>
+            <option value="espera">espera</option>
+        </select><br><br>
         <input type="submit" value="Agregar paciente">
     </form>
 

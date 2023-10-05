@@ -48,7 +48,7 @@ if ($result->num_rows > 0) {
         </div>
         <div class="filtrar">
             <i class='bx bx-filter-alt'></i>
-            <input type="search" name="filter_dni" id="filter_dni" placeholder="Buscar por nombre">
+            <input type="search" name="filter_dni" id="filter_name" placeholder="Buscar por nombre">
             <!-- falta hacer el filtro por estado de cada sala -->
             <select name="filter_estado" id="filter_estado">
                 <option value="">Todos</option>
@@ -121,6 +121,6 @@ if ($result->num_rows > 0) {
     </form>
 
 </body>
-<script src="js/main.js"></script>
+<script src="js/salas.js"></script>
 
 </html>
