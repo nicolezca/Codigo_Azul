@@ -6,7 +6,7 @@
 
 body{
     background-color: rgba(239, 237, 237, 0.589);
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 html{
