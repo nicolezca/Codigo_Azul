@@ -94,7 +94,7 @@ background: rgba(159, 159, 159, 0.122);
 
 }
 
-form{
+#formDoc{
     display: block;
     position: absolute;
     transition:all .4s ease-in;

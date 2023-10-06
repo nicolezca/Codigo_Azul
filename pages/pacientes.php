@@ -62,34 +62,42 @@ if ($result->num_rows > 0) {
     </nav>
     <?php if (isset($identificaciones) && count($identificaciones) > 0) : ?>
         <div class="container">
-            <table id="Tabla">
-                <thead>
-                    <tr>
-                        <th>identificacion</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>DNI</th>
-                        <th id="telefono">Telefono</th>
-                        <th>Obra Sosial</th>
-                        <th>historial Clinico</th>
-                        <th>estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($identificaciones as $key => $id) : ?>
-                        <tr>
-                            <td><?php echo $id; ?></td>
-                            <td><?php echo $doctores[$key]; ?></td>
-                            <td><?php echo $apellidos[$key]; ?></td>
-                            <td><?php echo $dni[$key]; ?></td>
-                            <td><?php echo $telefonos[$key]; ?></td>
-                            <td><?php echo $sociales[$key]; ?></td>
-                            <td style="text-align:start;"><?php echo $historiales[$key]; ?></td>
-                            <td><?php echo $estados[$key]; ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+        <table id="Tabla">
+    <thead>
+        <tr>
+            <th>Identificación</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>DNI</th>
+            <th id="telefono">Teléfono</th>
+            <th>Obra Social</th>
+            <th>Historial Clínico</th>
+            <th>Estado</th>
+            <th>historial</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($identificaciones as $key => $id) : ?>
+            <tr>
+                <td><?php echo $id; ?></td>
+                <td><?php echo $doctores[$key]; ?></td>
+                <td><?php echo $apellidos[$key]; ?></td>
+                <td><?php echo $dni[$key]; ?></td>
+                <td><?php echo $telefonos[$key]; ?></td>
+                <td><?php echo $sociales[$key]; ?></td>
+                <td style="text-align:start;"><?php echo $historiales[$key]; ?></td>
+                <td><?php echo $estados[$key]; ?></td>
+                <td>
+                    <form action="php/pdf.php" method="post" id="algo">
+                        <input type="hidden" name="id_paciente" value="<?php echo $id; ?>">
+                        <input type="submit" value="Historial Clínico">
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
         </div>
     <?php else : ?>
         <!-- Mostrar un mensaje si no hay datos -->
