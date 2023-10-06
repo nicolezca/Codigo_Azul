@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_paciente"])) {
                 // Historia clínica
                 $this->Cell(0, 10,'Historia Clinica', 0, 1, 'C');
                 $this->SetFont('Arial', 'I',12);
-                $this->MultiCell(0, 10, mb_convert_encoding($data['historiaClinica'], 'UTF-8'));
+                $this->MultiCell(0, 10, mb_convert_encoding($data['historiaClinica'],'UTF-8'));
                 $this->Ln(5);
             }
         }
@@ -57,11 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_paciente"])) {
         $pdf = new PDF();
         $pdf->AddPage();
         $pdf->PatientRecord($paciente);
-
         $pdf->Output(  'Paciente_Historial_Clinico.pdf', 'D'); // Descargar el PDF
-        
     } 
-    
     else {
         echo "Error al generar el PDF: No se encontraron datos del paciente.";
     }
