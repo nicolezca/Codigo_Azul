@@ -59,7 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_paciente"])) {
         $pdf->PatientRecord($paciente);
 
         $pdf->Output(  'Paciente_Historial_Clinico.pdf', 'D'); // Descargar el PDF
-    } else {
+        
+    } 
+    
+    else {
         echo "Error al generar el PDF: No se encontraron datos del paciente.";
     }
 }
