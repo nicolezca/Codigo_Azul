@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nombre"]) && isset($_P
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            echo "El nombre de usuario ya está registrado.";
+            echo "La matricula ya está registrado.";
         } else {
             // Insertar el nuevo usuario en la base de datos
             $sql = "INSERT INTO personal (nombre, apellido, cargo, matricula, tipo) VALUES ('$nombre', '$apellido', '$cargo', '$matricula','medico')";
