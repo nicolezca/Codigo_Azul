@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_paciente"])) {
                 $this->Ln(5);
 
                 // Datos personales del paciente
+                $this->Cell(50,10, 'Paciente: ' . $data['id'],0,1);
                 $this->Cell(50, 10,'Nombre: ' . mb_convert_encoding($data['nombre'], 'UTF-8'), 0, 0);
                 $this->Cell(50, 10,'Apellido: ' . mb_convert_encoding($data['apellido'], 'UTF-8'), 0, 1);
                 $this->Cell(50, 10, 'DNI: ' . $data['dni'], 0, 0);
