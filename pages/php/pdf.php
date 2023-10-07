@@ -21,11 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_paciente"])) {
                 $this->SetFont('Arial', 'B', 18);
                 $this->SetTextColor(0, 0, 255);
                 $this->Cell(0, 10, "Hospital PixelPionners", 0, 1);
+                $this->Ln(5);
 
                 $this->SetTextColor(0);
                 $this->SetFont('Arial', 'B', 14);
                 $this->Cell(0, 10, 'Expediente de Paciente', 0, 1, 'C');
-                $this->Ln(20 );
+                $this->Ln(30);
             }
 
             // Pie de página
@@ -40,9 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_paciente"])) {
             function PatientRecord($data)
             {
 
-            
-                $this->Image('../../img/fondo_incial.jpg', 10, 30, 40);
-                $this->SetY(30);
+                $this->Image('../../img/fondo_incial.jpg', 10, 40, 40);
+                $this->SetY(40);
 
                 // Datos personales del paciente
                 $this->SetFont('Arial', '', 12);
@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_paciente"])) {
                 $this->Cell(35, 10, 'DNI: ' . $data['dni'], 0, 0);
                 $this->Cell(50, 10, 'Telefono: ' . $data['telefono'], 0, 0);
                 $this->Cell(50, 10, 'Obra Social: ' . mb_convert_encoding($data['obraSocial'], 'UTF-8'), 0, 1);
-                $this->Ln(5);
+                $this->Ln(8);
 
                 // Línea divisoria
                 $this->SetX(10);
@@ -75,7 +75,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_paciente"])) {
         $pdf = new PDF();
         $pdf->AddPage();
         $pdf->PatientRecord($paciente);
-        $pdf->Output('Paciente_Historial_Clinico.pdf', 'D'); // Descargar el PDF
+        $nombreArchivo = $paciente['nombre'] . '_' . $paciente['apellido'] . '_Historial_Clinico.pdf';
+        $pdf->Output($nombreArchivo, 'D'); // Descargar el PDF con el nombre del paciente
     } else {
         echo "Error al generar el PDF: No se encontraron datos del paciente.";
     }
