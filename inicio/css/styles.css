@@ -40,6 +40,7 @@ html{
 }
 .header .btn-emergencia button{
     background: blue;
+    cursor: pointer;
     padding: 15px 20px;
     border: none;
     border-radius: 20px;
@@ -162,13 +163,16 @@ select {
 
 
 input[type="submit"] {
-    background-color: #007bff;
+    background-color: blue;
     color: #fff;
     padding: 10px 20px;
+    margin-top: 20px;
     border: none;
     cursor: pointer;
+    transition: all .3s ease-in;
 }
 
 input[type="submit"]:hover {
-    background-color: #0056b3;}
+    opacity: 50%;
+}
 
