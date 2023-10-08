@@ -29,9 +29,9 @@ include('../conexion/conexion.php');
             <button id="btnLlamado">Emergencia</button>
         </div>
         <nav class="navegacion">
-            <a href="../pages/doctores.php">Doctores</a>
-            <a href="../pages/enfermeros.php">Enfermeros</a>
-            <a href="../pages/pacientes.php">Pacientes</a>
+            <a href="../pages/doctores/doctores.php">Doctores</a>
+            <a href="../pages/enfermeros/enfermeros.php">Enfermeros</a>
+            <a href="../pages/pacientes/pacientes.php">Pacientes</a>
         </nav>
     </header>
     <div class="banner">

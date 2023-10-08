@@ -1,5 +1,5 @@
 <?php
-include('../conexion/conexion.php');
+include('../../conexion/conexion.php');
 
 $sql = 'SELECT * FROM sala';
 $result = $conn->query($sql);
