@@ -32,7 +32,7 @@ if ($result->num_rows > 0) {
 
 <body>
     <header>
-        <a href="../inicio/inicio.php">
+        <a href="../../inicio/inicio.php">
             <div class="logo">
                 <i class='bx bx-plus-medical'></i>
             </div>
