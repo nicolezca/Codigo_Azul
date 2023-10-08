@@ -1,22 +1,32 @@
 <?php 
 include('../../conexion/conexion.php');
 
-$sql = 'SELECT id,nombre,apellido,dni,telefono,obraSocial,historiaClinica FROM paciente WHERE estado ="baja"';
+$sql = 'SELECT p.id,p.nombre,p.apellido,p.dni,p.telefono,p.obraSocial, h.contenido
+        FROM paciente p
+        LEFT JOIN historia_clinica h ON p.id = h.idPaciente
+        WHERE p.estado = "baja"
+        AND h.id IN (
+            SELECT MAX(id) FROM historia_clinica GROUP BY idPaciente
+        )';
+
 $result = $conn->query($sql);
 
-$doctores = array(); // Creamos un arreglo para almacenar los datos de los pacientes
+$pacientes = array(); // Creamos un arreglo para almacenar los datos de los pacientes
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $identificaciones[] = $row['id'];
-        $nombre[] = $row['nombre'];
-        $apellidos[] = $row['apellido'];
-        $dni[] = $row['dni'];
-        $telefonos[] = $row['telefono'];
-        $sociales[] = $row['obraSocial'];
-        $historiales[] = $row['historiaClinica'];
+        $pacientes[] = array(
+            'id' => $row['id'],
+            'nombre' => $row['nombre'],
+            'apellido' => $row['apellido'],
+            'dni' => $row['dni'],
+            'telefono' => $row['telefono'],
+            'obraSocial' => $row['obraSocial'],
+            'historiaClinica' => $row['historiaClinica']
+        );
     }
 }
+
 
 ?>
 
@@ -49,34 +59,34 @@ if ($result->num_rows > 0) {
         </div>
 
     </nav>
-    <?php if (isset($identificaciones) && count($identificaciones) > 0) : ?>
-        <div class="container">
-            <table id="Tabla">
-                <thead>
+    <?php if (isset($pacientes) && count($pacientes) > 0) : ?>
+    <div class="container">
+        <table id="Tabla">
+            <thead>
+                <tr>
+                    <th>Identificación</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>DNI</th>
+                    <th>Teléfono</th>
+                    <th>Obra Social</th>
+                    <th>Historial Clínico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($pacientes as $paciente) : ?>
                     <tr>
-                        <th>identificacion</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>DNI</th>
-                        <th id="telefono">Telefono</th>
-                        <th>Obra Sosial</th>
-                        <th >historial Clinico</th>
+                        <td><?php echo $paciente['id']; ?></td>
+                        <td><?php echo $paciente['nombre']; ?></td>
+                        <td><?php echo $paciente['apellido']; ?></td>
+                        <td><?php echo $paciente['dni']; ?></td>
+                        <td><?php echo $paciente['telefono']; ?></td>
+                        <td><?php echo $paciente['obraSocial']; ?></td>
+                        <td style="text-align: start;"><?php echo $paciente['historiaClinica']; ?></td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($identificaciones as $key => $id) : ?>
-                        <tr>
-                            <td><?php echo $id; ?></td>
-                            <td><?php echo $nombre[$key]; ?></td>
-                            <td><?php echo $apellidos[$key]; ?></td>
-                            <td><?php echo $dni[$key]; ?></td>
-                            <td><?php echo $telefonos[$key]; ?></td>
-                            <td><?php echo $sociales[$key]; ?></td>
-                            <td style="text-align: start;"><?php echo $historiales[$key]; ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
         </div>
     <?php else : ?>
         <!-- Mostrar un mensaje si no hay datos -->
