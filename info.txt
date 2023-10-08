@@ -1,2 +1,10 @@
-necesito modificar la BDD para que  a la hora de cargar mas historiales de pacientes se guarde con su ID y no se genere pacientes repetidos esta tabla contedra el ID_paciente y el historialClinico
-
+lo que falta por hacer:
+-
+-
+-
+-
+-
+-
+-
+-
+-

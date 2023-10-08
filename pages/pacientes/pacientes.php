@@ -85,7 +85,7 @@ if ($result->num_rows > 0) {
                             <td><?php echo $sociales[$key]; ?></td>
                             <td><?php echo $estados[$key]; ?></td>
                             <td>
-                                <form action="php/pdf.php" method="post" id="algo">
+                                <form action="../pdf/pdf.php" method="post" id="algo">
                                     <input type="hidden" name="id_paciente" value="<?php echo $id; ?>">
                                     <input type="submit" value="Historial Clínico">
                                 </form>
