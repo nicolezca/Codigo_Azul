@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const btnform = document.getElementById("mostrarFormulario");
     const formulario = document.getElementById("formDoc");
-    
+
     formulario.style.transform = "translateX(-100%)";
 
     btnform.addEventListener("click", function () {
@@ -13,30 +13,27 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    //cambiar tipo de filtro
-    const filterDniInput = document.getElementById("filter_dni");
-    const filterEstadoSelect = document.getElementById("filter_estado");
+    //Filtrado por matricula del personal
+    const filterMatriculaSelect = document.getElementById("filter_matricula");
     const aplicarFiltroButton = document.getElementById("aplicarFiltro");
     const tablaResultado = document.getElementById("Tabla").getElementsByTagName('tbody')[0];
 
+    //funcion a la hora de hacer click se crea un evento
     aplicarFiltroButton.addEventListener("click", function () {
-        const dni = filterDniInput.value.toLowerCase();
-        const estado = filterEstadoSelect.value.toLowerCase();
-
-        filtrarTabla(dni, estado);
+        const matricula = filterMatriculaSelect.value.toLowerCase();
+        filtrarTabla(matricula);
     });
-
-    function filtrarTabla(dni, estado) {
+    //funcion de filtrado mediante una recorrigo por la tabla coincidiendo con la columna propuesta
+    function filtrarTabla( matricula) {
         const filas = tablaResultado.getElementsByTagName("tr");
 
         for (let i = 0; i < filas.length; i++) {
             const fila = filas[i];
             const columnas = fila.getElementsByTagName("td");
 
-            const dniColumna = columnas[3].textContent.toLowerCase(); // Columna de DNI
-            const estadoColumna = columnas[7].textContent.toLowerCase(); // Columna de Estado
-
-            if ((dniColumna.includes(dni) || dni === "") && (estadoColumna.includes(estado) || estado === "")) {
+            const matriculaColumna = columnas[4].textContent.toLowerCase(); // Columna de matricula
+            //parametros si se cumple la funcion
+            if ((matriculaColumna .includes(matricula) || matricula === "")) {
                 fila.style.display = "table-row";
             } else {
                 fila.style.display = "none";

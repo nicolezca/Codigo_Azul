@@ -1,10 +1,9 @@
 <?php
-    include('../conexion/conexion.php');
-
+include('../conexion/conexion.php');
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -40,7 +39,7 @@
     </div>
     <div class="btn-seccion">
         <div class="card">
-            <a href="../pages/salas.php">
+            <a href="../pages/salas/salas.php">
                 <i class='bx bx-bed'></i>
                 <span>Salas</span>
             </a>
@@ -52,7 +51,7 @@
             </a>
         </div>
         <div class="card">
-            <a href="../pages/pacientesAtendidos/atendidos.php">
+            <a href="../pages/pacientes/atendidos.php">
                 <i class='bx bx-street-view'></i>
                 <span>Atendidos</span>
             </a>
@@ -93,7 +92,7 @@
 
         <!-- Se le asigna personal -->
         <label for="personal">Personal a asignar:</label>
-        <select name="personal" id="personal" >
+        <select name="personal" id="personal">
             <?php
             // Consulta para obtener personal
             $sql = "SELECT id, nombre, tipo, cargo FROM personal";
@@ -132,6 +131,7 @@
         <input type="submit" value="hacer llamado">
     </form>
 </body>
+
 <script src="js/main.js"></script>
 
 </html>

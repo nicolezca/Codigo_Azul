@@ -46,7 +46,8 @@ if ($result->num_rows > 0) {
         </div>
         <div class="filtrar">
             <i class='bx bx-filter-alt'></i>
-            <input type="search" name="filter" id="filter" placeholder="buscar">
+            <input type="search" name="filter_matricula" id="filter_matricula" placeholder="buscar por matricula">
+            <button id="aplicarFiltro">Aplicar Filtro</button>
         </div>
     </nav>
     <?php if (isset($identificaciones) && count($identificaciones) > 0) : ?>
