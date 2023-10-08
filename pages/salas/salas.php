@@ -2,6 +2,7 @@
 include('../../conexion/conexion.php');
 
 $sql = 'SELECT * FROM sala';
+
 $result = $conn->query($sql);
 
 $doctores = array(); // Creamos un arreglo para almacenar los datos de los médicos
@@ -17,6 +18,7 @@ if ($result->num_rows > 0) {
         $ocupacion[] = $row['ocupacionActual'];
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +30,32 @@ if ($result->num_rows > 0) {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/styles.css">
     <title>Pacientes</title>
+    <style>
+        .lista-pacientes-card {
+            position: absolute;
+            top: 50%;
+            left: 40%;
+            background-color: white;
+            box-shadow: 0 0 15px black;
+            padding: 20px 30px;
+            display: none;
+        }
+
+        .lista-pacientes-card .pacientes h3 {
+            margin-bottom: 20px;
+            padding: .5em 0;
+            border-bottom: 2px solid blue;
+        }
+
+        .lista-pacientes-card .pacientes #lista {
+            list-style: none;
+        }
+
+        #lista li {
+            font-family: monospace;
+            padding: 5px 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -82,7 +110,13 @@ if ($result->num_rows > 0) {
                             <td><?php echo $tipo[$key]; ?></td>
                             <td><?php echo $capacidadM[$key]; ?></td>
                             <td><?php echo $ocupacion[$key]; ?></td>
-                            <td><?php echo $estado[$key]; ?></td>
+                            <td>
+                                <?php if ($ocupacion[$key] < $capacidadM[$key]) : ?>
+                                    <span class="ver-pacientes-btn">hibilitado</span>
+                                <?php else : ?>
+                                    <span class='ver-pacientes-btn ocupado' disabled>Ocupado</span>
+                                <?php endif; ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

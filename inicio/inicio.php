@@ -77,7 +77,8 @@ include('../conexion/conexion.php');
         <select name="sala" id="sala">
             <?php
             // Consulta para obtener las salas disponibles
-            $sql = "SELECT id, nombre FROM sala WHERE disponible = '1'";
+            $sql = "SELECT id, nombre FROM sala WHERE ocupacionActual < capacidadMaxima";
+
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {

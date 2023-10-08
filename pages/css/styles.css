@@ -134,3 +134,18 @@ form input[type="submit"]:hover{
     cursor: pointer;
     background-color: white;
 }
+
+
+
+.ver-pacientes-btn{
+    outline: 1px solid greenyellow;
+    padding: 8px 10px;
+    color: rgb(107, 165, 19);
+    cursor:default;
+    border-radius: 5px;
+}
+
+.ocupado{
+    outline: 1px solid red;
+    color: red;
+}
