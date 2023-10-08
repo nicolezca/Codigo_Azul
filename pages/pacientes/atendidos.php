@@ -22,7 +22,7 @@ if ($result->num_rows > 0) {
             'dni' => $row['dni'],
             'telefono' => $row['telefono'],
             'obraSocial' => $row['obraSocial'],
-            'historiaClinica' => $row['historiaClinica']
+            'historiaClinica' => $row['contenido']
         );
     }
 }
