@@ -1,7 +1,7 @@
 <?php
 include('../../conexion/conexion.php');
 
-$sql = 'SELECT * FROM paciente';
+$sql = 'SELECT id,nombre,apellido,dni,telefono,obraSocial,estado FROM paciente';
 $result = $conn->query($sql);
 
 $doctores = array(); // Creamos un arreglo para almacenar los datos de los médicos
@@ -14,7 +14,6 @@ if ($result->num_rows > 0) {
         $dni[] = $row['dni'];
         $telefonos[] = $row['telefono'];
         $sociales[] = $row['obraSocial'];
-        $historiales[] = $row['historiaClinica'];
         $estados[] = $row['estado'];
     }
 }
@@ -71,7 +70,6 @@ if ($result->num_rows > 0) {
                         <th>DNI</th>
                         <th id="telefono">Teléfono</th>
                         <th>Obra Social</th>
-                        <!-- <th>Historial Clínico</th> -->
                         <th>Estado</th>
                         <th>historial</th>
                     </tr>
@@ -85,7 +83,6 @@ if ($result->num_rows > 0) {
                             <td><?php echo $dni[$key]; ?></td>
                             <td><?php echo $telefonos[$key]; ?></td>
                             <td><?php echo $sociales[$key]; ?></td>
-                            <!-- <td style="text-align:start;"><?php echo $historiales[$key]; ?></td> -->
                             <td><?php echo $estados[$key]; ?></td>
                             <td>
                                 <form action="php/pdf.php" method="post" id="algo">
