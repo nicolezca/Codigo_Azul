@@ -117,8 +117,8 @@ if ($result->num_rows > 0) {
             ?>
         </select><br><br>
 
-        <label for="fechaInicio">Fecha de Salida:</label>
-        <input type="datetime-local" name="fechaInicio" id="fechaInicio" required><br><br>
+        <label for="fechafin">Fecha de Salida:</label>
+        <input type="datetime-local" name="fechafin" id="fechafin" required><br><br>
 
         <input type="submit" value="hacer llamado">
     </form>
