@@ -25,11 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nombre"]) && isset($_P
 
             if ($conn->query($sql) === TRUE) {
                 echo "Registro exitoso";
-                header("Location: ../doctores.php");
+                header("Location: doctores.php");
                 exit();
             } else {
                 echo "Error en el registro: " . $conn->error;
-                echo '<a href="../doctores.php">Volver a intentar</a>';
+                echo '<a href="doctores.php">Volver a intentar</a>';
             }
         }
     }

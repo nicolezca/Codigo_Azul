@@ -1,5 +1,5 @@
 <?php
-include('../conexion/conexion.php');
+include('../../conexion/conexion.php');
 
 $sql = 'SELECT * FROM paciente';
 $result = $conn->query($sql);
@@ -27,7 +27,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <title>Pacientes</title>
 </head>
 
@@ -106,7 +106,7 @@ if ($result->num_rows > 0) {
         </div>
     <?php endif; ?>
 
-    <form action="php/subirPaciente.php" id="formDoc" method="post">
+    <form action="subirPaciente.php" id="formDoc" method="post">
         <label for="nombre">Nombre del paciente:</label>
         <input type="text" id="nombre" name="nombre" required autocomplete="off"><br><br>
 
@@ -135,6 +135,6 @@ if ($result->num_rows > 0) {
     </form>
 
 </body>
-<script src="js/main.js"></script>
+<script src="pacientes.js"></script>
 
 </html>

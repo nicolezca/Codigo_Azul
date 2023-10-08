@@ -1,5 +1,5 @@
 <?php 
-include('../conexion/conexion.php');
+include('../../conexion/conexion.php');
 
 $sql = 'SELECT * FROM paciente WHERE estado ="baja"';
 $result = $conn->query($sql);
@@ -87,7 +87,7 @@ if ($result->num_rows > 0) {
         </div>
     <?php endif; ?>
 </body>
-<script src="js/atendidos.js"></script>
+<script src="pacientes.js"></script>
 </html>
 
 

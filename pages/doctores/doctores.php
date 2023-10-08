@@ -1,5 +1,5 @@
 <?php
-include('../conexion/conexion.php');
+include('../../conexion/conexion.php');
 
 $sql = 'SELECT * FROM personal WHERE tipo ="medico"';
 $result = $conn->query($sql);
@@ -24,13 +24,13 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <title>Doctores</title>
 </head>
 
 <body>
     <header>
-        <a href="../inicio/inicio.php">
+        <a href="../../inicio/inicio.php">
         <div class="logo">
             <i class='bx bx-plus-medical'></i>
         </div>
@@ -81,7 +81,7 @@ if ($result->num_rows > 0) {
         </div>
     <?php endif; ?>
 
-    <form action="php/subirDoctor.php" id="formDoc" method="post">
+    <form action="subirDoctor.php" id="formDoc" method="post">
         <label for="nombre">Nombre del Doctor:</label>
         <input type="text" id="nombre" name="nombre" required autocomplete="off"><br><br>
 
@@ -98,5 +98,6 @@ if ($result->num_rows > 0) {
     </form>
 
 </body>
-<script src="js/main.js"></script>
+<!-- crear js general para mostrar formulario -->
+<script src="../js/main.js"></script>
 </html>

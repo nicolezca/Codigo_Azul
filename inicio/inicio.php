@@ -52,7 +52,7 @@
             </a>
         </div>
         <div class="card">
-            <a href="../pages/atendidos.php">
+            <a href="../pages/pacientesAtendidos/atendidos.php">
                 <i class='bx bx-street-view'></i>
                 <span>Atendidos</span>
             </a>

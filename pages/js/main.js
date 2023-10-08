@@ -2,8 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const btnform = document.getElementById("mostrarFormulario");
     const formulario = document.getElementById("formDoc");
-
-    // Establece un valor predeterminado para el estilo transform
+    
     formulario.style.transform = "translateX(-100%)";
 
     btnform.addEventListener("click", function () {
@@ -14,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-
+    //cambiar tipo de filtro
     const filterDniInput = document.getElementById("filter_dni");
     const filterEstadoSelect = document.getElementById("filter_estado");
     const aplicarFiltroButton = document.getElementById("aplicarFiltro");
