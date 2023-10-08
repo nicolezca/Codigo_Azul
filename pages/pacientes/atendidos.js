@@ -1,5 +1,19 @@
 
 document.addEventListener("DOMContentLoaded", function () {
+    const btnform = document.getElementById("mostrarFormulario");
+    const formulario = document.getElementById("formDoc");
+
+    // Establece un valor predeterminado para el estilo transform
+    formulario.style.transform = "translateX(-100%)";
+    
+    btnform.addEventListener("click", function () {
+        if (formulario.style.transform === "translateX(-100%)") {
+            formulario.style.transform = "translateX(0)";
+        } else {
+            formulario.style.transform = "translateX(-100%)";
+        }
+    });
+
     //filtrado por DNI
     const filterDniInput = document.getElementById("filter_dni");
     const aplicarFiltroButton = document.getElementById("aplicarFiltro");

@@ -95,7 +95,7 @@ if ($result->num_rows > 0) {
         </div>
     <?php endif; ?>
 
-    <form action="php/subirsala.php" id="formDoc" method="post">
+    <form action="subirsala.php" id="formDoc" method="post">
         <label for="nombre">Nombre de la sala:</label>
         <input type="text" id="nombre" name="nombre" required autocomplete="off"><br><br>
 
@@ -121,6 +121,6 @@ if ($result->num_rows > 0) {
     </form>
 
 </body>
-<script src="js/salas.js"></script>
+<script src="salas.js"></script>
 
 </html>

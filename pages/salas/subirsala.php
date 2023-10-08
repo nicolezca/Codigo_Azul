@@ -12,18 +12,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nombre"]) && isset($_P
     
 
     // Validar los campos de registro
-    if (empty($nombre) || empty($piso) || empty($estado) || empty($tipo) || empty($capacidad) || empty($ocupacion)  ) {
+    if (empty($nombre) || empty($piso) || empty($estado) || empty($tipo) || empty($capacidad) ) {
         echo "Por favor, complete todos los campos.";
     } else {
             // Insertar el nuevo usuario en la base de datos
             $sql = "INSERT INTO sala (nombre, piso, disponible, tipo, capacidadMaxima, ocupacionActual ) VALUES ('$nombre', '$piso', '$estado', '$tipo','$capacidad', '$ocupacion')";
 
             if ($conn->query($sql) === TRUE) {
-                header("Location: ../salas.php");
+                header("Location: salas.php");
                 exit();
             } else {
                 echo "Error en el registro: " . $conn->error;
-                echo '<a href="../sala.php">Volver a intentar</a>';
+                echo '<a href="salas.php">Volver a intentar</a>';
             }
         }
 }

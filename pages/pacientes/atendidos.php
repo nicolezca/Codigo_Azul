@@ -53,6 +53,9 @@ if ($result->num_rows > 0) {
     </header>
     <nav>
         <div class="filtrar">
+            <div class="agregarDoc">
+                <button id="mostrarFormulario">Dar de alta</button>
+            </div>
             <i class='bx bx-filter-alt'></i>
             <input type="search" name="filter_dni" id="filter_dni" placeholder="Buscar por DNI">
             <button id="aplicarFiltro">Aplicar Filtro</button>
@@ -94,7 +97,34 @@ if ($result->num_rows > 0) {
             <p>No se han cargado ningun Paciente.</p>
         </div>
     <?php endif; ?>
+
+    <!-- para la tabla sala_paciente y sala_personal_asignado -->
+    <form  action="altaPacientes.php"  id="formDoc" method="POST">
+        <label for="paciente">Selecciona el paciente:</label>
+        <select name="paciente" id="paciente">
+            <?php
+            // Consulta para obtener las pacientes disponibles
+            $sql = "SELECT id, nombre, apellido FROM paciente WHERE estado = 'baja'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<option value='" . $row['id'] . "'>" . $row['nombre'], ' ', $row['apellido'] . "</option>";
+                }
+            } else {
+                echo "<option value=''>No hay pacientes sin atender</option>";
+            }
+            ?>
+        </select><br><br>
+
+        <label for="fechaInicio">Fecha de Salida:</label>
+        <input type="datetime-local" name="fechaInicio" id="fechaInicio" required><br><br>
+
+        <input type="submit" value="hacer llamado">
+    </form>
 </body>
+
+<form action="" method="post"></form>
 <script src="atendidos.js"></script>
 </html>
 
