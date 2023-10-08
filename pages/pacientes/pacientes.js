@@ -16,26 +16,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     
     
-    //filtrado por DNI y NOMBRE
+    //filtrado por DNI y ESTADO(alta,baja,espera)
     const filterDniInput = document.getElementById("filter_dni");
-    const filternameInput = document.getElementById("filter_name");
+    const filterEstadoInput = document.getElementById("filter_estado");
     const aplicarFiltroButton = document.getElementById("aplicarFiltro");
     const tablaResultado = document.getElementById("Tabla").getElementsByTagName('tbody')[0];
 
     aplicarFiltroButton.addEventListener("click", function () {
         const dni = filterDniInput.value.toLowerCase();
-        const nombre = filternameInput.value.toLowerCase();
-        filtrarTabla(dni,nombre);
+        const estado = filterEstadoInput.value.toLowerCase();
+        filtrarTabla(dni,estado);
     });
 
-    function filtrarTabla(dni, nombre) {
+    function filtrarTabla(dni, estado) {
         const filas = tablaResultado.getElementsByTagName("tr");
         for (let i = 0; i < filas.length; i++) {
             const fila = filas[i];
             const columnas = fila.getElementsByTagName("td");
             const dniColumna = columnas[3].textContent.toLowerCase(); // Columna de DNI
-            const nombreColumna = columnas[1].textContent.toLowerCase(); // Columna del nombre
-            if ((dniColumna.includes(dni) || dni === "") && (nombreColumna.includes(nombre) || nombre ==="") ) {
+            const estadoColumna = columnas[6].textContent.toLowerCase(); // Columna del nombre
+            if ((dniColumna.includes(dni) || dni === "") && (estadoColumna.includes(estado) || estado ==="") ) {
                 fila.style.display = "table-row";
             } else {
                 fila.style.display = "none";
