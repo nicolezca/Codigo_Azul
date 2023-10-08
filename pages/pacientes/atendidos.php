@@ -1,10 +1,10 @@
 <?php 
 include('../../conexion/conexion.php');
 
-$sql = 'SELECT * FROM paciente WHERE estado ="baja"';
+$sql = 'SELECT id,nombre,apellido,dni,telefono,obraSocial,historiaClinica FROM paciente WHERE estado ="baja"';
 $result = $conn->query($sql);
 
-$doctores = array(); // Creamos un arreglo para almacenar los datos de los médicos
+$doctores = array(); // Creamos un arreglo para almacenar los datos de los pacientes
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -15,7 +15,6 @@ if ($result->num_rows > 0) {
         $telefonos[] = $row['telefono'];
         $sociales[] = $row['obraSocial'];
         $historiales[] = $row['historiaClinica'];
-        $estados[] = $row['estado'];
     }
 }
 
@@ -46,7 +45,6 @@ if ($result->num_rows > 0) {
         <div class="filtrar">
             <i class='bx bx-filter-alt'></i>
             <input type="search" name="filter_dni" id="filter_dni" placeholder="Buscar por DNI">
-            <input type="search" name="filter_name" id="filter_name" placeholder="Buscar por Nombre">
             <button id="aplicarFiltro">Aplicar Filtro</button>
         </div>
 
@@ -62,7 +60,7 @@ if ($result->num_rows > 0) {
                         <th>DNI</th>
                         <th id="telefono">Telefono</th>
                         <th>Obra Sosial</th>
-                        <th>historial Clinico</th>
+                        <th >historial Clinico</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,7 +72,7 @@ if ($result->num_rows > 0) {
                             <td><?php echo $dni[$key]; ?></td>
                             <td><?php echo $telefonos[$key]; ?></td>
                             <td><?php echo $sociales[$key]; ?></td>
-                            <td><?php echo $historiales[$key]; ?></td>
+                            <td style="text-align: start;"><?php echo $historiales[$key]; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -87,7 +85,7 @@ if ($result->num_rows > 0) {
         </div>
     <?php endif; ?>
 </body>
-<script src="pacientes.js"></script>
+<script src="atendidos.js"></script>
 </html>
 
 

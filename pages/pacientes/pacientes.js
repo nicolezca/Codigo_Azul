@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const fila = filas[i];
             const columnas = fila.getElementsByTagName("td");
             const dniColumna = columnas[3].textContent.toLowerCase(); // Columna de DNI
-            const estadoColumna = columnas[6].textContent.toLowerCase(); // Columna del nombre
+            const estadoColumna = columnas[6].textContent.toLowerCase(); // Columna del estado
             if ((dniColumna.includes(dni) || dni === "") && (estadoColumna.includes(estado) || estado ==="") ) {
                 fila.style.display = "table-row";
             } else {
