@@ -12,20 +12,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nombre"]) && isset($_P
     $estado = $_POST["estado"];
 
 
-    // Validar los campos de registro
-    if (empty($nombre) || empty($apellido) || empty($dni) || empty($telefono) || empty($social) || empty($historial)  || empty($estado) ) {
-        echo "Por favor, complete todos los campos.";
-    } else {
-            // Insertar el nuevo usuario en la base de datos
-            $sql = "INSERT INTO paciente (nombre, apellido, dni, telefono, obraSocial, historiaClinica, estado ) VALUES ('$nombre', '$apellido', '$dni', '$telefono','$social', '$historial', '$estado')";
+// Insertar el nuevo paciente en la tabla paciente
+$sql = "INSERT INTO paciente (nombre, apellido, dni, telefono, obraSocial, estado ) VALUES ('$nombre', '$apellido', '$dni', '$telefono','$social','$estado')";
 
-            if ($conn->query($sql) === TRUE) {
-                header("Location: pacientes.php");
-                exit();
-            } else {
-                echo "Error en el registro: " . $conn->error;
-                echo '<a href="pacientes.php">Volver a intentar</a>';
-            }
-        }
+if ($conn->query($sql) === TRUE) {
+    // Obtener el idPaciente generado automáticamente
+    $idPaciente = $conn->insert_id;
+    
+    // Insertar el historial clínico en la tabla historia_clinica
+    $sqlHistorial = "INSERT INTO historia_clinica (idPaciente, contenido) VALUES ('$idPaciente', '$historial')";
+    
+    if ($conn->query($sqlHistorial) === TRUE) {
+        header("Location: pacientes.php");
+        exit();
+    } else {
+        echo "Error al insertar el historial clínico: " . $conn->error;
+        echo '<a href="pacientes.php">Volver a intentar</a>';
+    }
+} else {
+    echo "Error en el registro del paciente: " . $conn->error;
+    echo '<a href="pacientes.php">Volver a intentar</a>';
+}
+
 }
 ?>
