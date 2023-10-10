@@ -11,5 +11,15 @@ document.addEventListener("DOMContentLoaded",  () => {
             emergenciaForm.style.transform = "translateX(-100%)";
         }
     })
+
+    emergenciaForm.addEventListener('submit', function() {
+        var sonido = document.getElementById('sonido');
+        sonido.play();
+        
+        setTimeout(function() {
+            sonido.pause();
+            sonido.currentTime = 0;
+        }, 3000);
+    });
 });
 

@@ -131,10 +131,11 @@ include('../conexion/conexion.php');
 
         <input type="submit" value="hacer llamado">
     </form>
+
+    <audio src="../img/tone-evacuation.mp3" id="sonido"></audio>
 </body>
 
 <script src="js/main.js"></script>
-
 </html>
 
 <!-- el formulario funciona asi: se sube casi todos los datos(id,sala,paciente,fecha_inicio) a la tabla de sala_paciente mientras que el personal a asignar se sube en la tabla de sala_personal_asignado con el id del llamado -->

@@ -1,21 +1,5 @@
-lo que falta por hacer:
-tengo mal planteado el tema de hacer la llamada
-ya que es para un paciente que ya esta atendido en una sala 
-
-con el tipo de llamado con el formulario se tendria que usar para asiganar al paciente una sala 
-
-para asignar al paciente necesita:
-    -idSala
-    -idPaciente
-    -fechaHoraIngreso
-    -fechaHoraEgreso
-aparte se le asignara Personal:
-    -idPersonal
-    -idSala
-    -dias
-    -turno
-
 tarea:
+podria estar en la SECCION DE ESPERA:
     hacer un formulario para saignasr pasiente a la sala con su personal, el formulario contendra:
         -input: (paciente a elejir si esta en espera)
         -input: (sala a elejir si esta disponible -> ocupacionActual < capacidadMaxima)
@@ -25,10 +9,11 @@ tarea:
         -input: (elejir los dias que esta de guardia el personal)
         -input: (elejir los turnos entre (D(dia),T(tarde),N(noche)))
 
-En la SECCION RESPUESTA DE ATENCION:
-hiria la informacion del llamado con su datos:
-    -prioridad de llamado
-    -idSala
+En la SECCION ATENDIDOS mostrara lo del formulario de la SECCION DE ESPERA:
     -idPaciente
-    -fechaHoraInicio
-    -fechaHoraFin
+    -idSala
+    -fechaHoraIngreso
+    -fechaHoraEgreso
+    -idPersonal
+    -dias
+    -turno
