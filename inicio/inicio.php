@@ -45,7 +45,7 @@ include('../conexion/conexion.php');
             </a>
         </div>
         <div class="card">
-            <a href="">
+            <a href="../pages/llamado/atencion.php">
                 <i class='bx bxs-book-add'></i>
                 <span>Respuesta de atencion</span>
             </a>
