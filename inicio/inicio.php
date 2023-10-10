@@ -57,7 +57,7 @@ include('../conexion/conexion.php');
             </a>
         </div>
         <div class="card">
-            <a href="">
+            <a href="../pages/esperas/esperas.php">
                 <i class='bx bx-time'></i>
                 <span>En Espera</span>
             </a>

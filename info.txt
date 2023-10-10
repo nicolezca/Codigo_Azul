@@ -1,6 +1,6 @@
 tarea:
 podria estar en la SECCION DE ESPERA:
-    hacer un formulario para saignasr pasiente a la sala con su personal, el formulario contendra:
+    hacer un formulario para asignar pasiente a la sala con su personal, el formulario contendra:
         -input: (paciente a elejir si esta en espera)
         -input: (sala a elejir si esta disponible -> ocupacionActual < capacidadMaxima)
         -input: (datetime-local pasa sacar fecha y la hora de ingreso)
@@ -8,6 +8,7 @@ podria estar en la SECCION DE ESPERA:
         -input: (el personal acargo del paciente)
         -input: (elejir los dias que esta de guardia el personal)
         -input: (elejir los turnos entre (D(dia),T(tarde),N(noche)))
+    para que despues se cambie el estado del paciente a baja siendo(atendido)
 
 En la SECCION ATENDIDOS mostrara lo del formulario de la SECCION DE ESPERA:
     -idPaciente

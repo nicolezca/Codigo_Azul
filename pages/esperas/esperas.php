@@ -2,7 +2,7 @@
 
 include('../../conexion/conexion.php');
 
-$sql = 'SELECT * FROM sala_paciente';
+$sql = 'SELECT id,nombre,apellido,dni,telefono,obraSocial FROM paciente WHERE estado="espera"';
 $result = $conn->query($sql);
 
 $doctores = array(); // Creamos un arreglo para almacenar los datos de los médicos
@@ -10,10 +10,11 @@ $doctores = array(); // Creamos un arreglo para almacenar los datos de los médi
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $identificaciones[] = $row['id'];
-        $salas[] = $row['idSala'];
-        $pacientes[] = $row['idPaciente'];
-        $fechaInicios[] = $row['fechaHoraImgreso'];
-        $fechaFin[] = $row['fechaHoraEgreso'];
+        $nombre[] = $row['nombre'];
+        $apellido[] = $row['apellido'];
+        $dni[] = $row['dni'];
+        $telefono[] = $row['telefono'];
+        $obraSocial[] = $row['obraSocial'];
     }
 }
 
@@ -44,14 +45,8 @@ if ($result->num_rows > 0) {
         </a>
     </header>
     <nav>
-        <div class="filtrar">
-            <i class='bx bx-filter-alt'></i>
-            <select name="filter_estado" id="filter_estado">
-                <option value="">Todos</option>
-                <option value="emergencia">emergencia</option>
-                <option value="normal">normal</option>
-            </select>
-            <button id="aplicarFiltro">Aplicar Filtro</button>
+        <div class="agregarDoc">
+            <button id="mostrarFormulario">Atender</button>
         </div>
 
     </nav>
@@ -71,14 +66,11 @@ if ($result->num_rows > 0) {
                     <?php foreach ($identificaciones as $key => $id) : ?>
                         <tr>
                             <td><?php echo $id; ?></td>
-                            <td><?php echo $salas[$key]; ?></td>
-                            <td><?php echo $pacientes[$key]; ?></td>
-                            <td><?php echo $fechaInicios[$key]; ?></td>
-                            <?php if ($fechaFin[$key] == "0000-00-00 00:00:00") : ?>
-                                <td>No se finalizó</td>
-                            <?php else : ?>
-                                <td><?php echo $fechaFin[$key]; ?></td>
-                            <?php endif; ?>
+                            <td><?php echo $nombre[$key]; ?></td>
+                            <td><?php echo $apellido[$key]; ?></td>
+                            <td><?php echo $dni[$key]; ?></td>
+                            <td><?php echo $telefono[$key]; ?></td>
+                            <td><?php echo $obraSocial[$key]; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
