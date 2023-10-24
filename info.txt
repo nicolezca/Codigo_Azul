@@ -1,20 +1,8 @@
-tarea:
-podria estar en la SECCION DE ESPERA:
-    hacer un formulario para asignar pasiente a la sala con su personal, el formulario contendra:
-        -input: (paciente a elejir si esta en espera)
-        -input: (sala a elejir si esta disponible -> ocupacionActual < capacidadMaxima)
-        -input: (datetime-local pasa sacar fecha y la hora de ingreso)
-        -input: (datetime-local pasa sacar fecha y la hora de salida) pero esto iria cuando se da de alta al pasiente
-        -input: (el personal acargo del paciente)
-        -input: (elejir los dias que esta de guardia el personal)
-        -input: (elejir los turnos entre (D(dia),T(tarde),N(noche)))
-    para que despues se cambie el estado del paciente a baja siendo(atendido)
+tarea para hacer:
 
-En la SECCION ATENDIDOS mostrara lo del formulario de la SECCION DE ESPERA:
-    -idPaciente
-    -idSala
-    -fechaHoraIngreso
-    -fechaHoraEgreso
-    -idPersonal
-    -dias
-    -turno
+en el llamado asignar varios personales en el formulario:
+    -tener en un formulario don secciones, la primera para informacion de llamado, y la segunda el personal a asignar
+
+tener una funcion nueva para ingresar a un paciente que ya esta registrado pero con una nuevo historial clinico 
+
+poder ver  la sala con sus pacientes mendiante un boton para ver sus pacientes con su personal asignado
