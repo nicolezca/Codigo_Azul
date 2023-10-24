@@ -6,3 +6,6 @@ en el llamado asignar varios personales en el formulario:
 tener una funcion nueva para ingresar a un paciente que ya esta registrado pero con una nuevo historial clinico 
 
 poder ver  la sala con sus pacientes mendiante un boton para ver sus pacientes con su personal asignado
+
+para hacer el multiple seleccion del personal ver:
+https://github.com/habibmhamadi/multi-select-tag
