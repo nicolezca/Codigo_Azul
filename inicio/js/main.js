@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded",  () => {
         setTimeout(function() {
             sonido.pause();
             sonido.currentTime = 0;
-        }, 3000);
+        }, 6000);
     });
 });
 
