@@ -65,7 +65,7 @@ include('../conexion/conexion.php');
     </div>
 
 
-    <!-- para la tabla sala_paciente y sala_personal_asignado -->
+    <!-- para la tabla llamado y llamado _personal-->
     <form id="formularioSala" action="php/alerta.php" method="POST">
         <label for="prioridad">Prioridad de Llamado:</label>
         <select name="prioridad" id="prioridad">
@@ -73,6 +73,7 @@ include('../conexion/conexion.php');
             <option value="emergencia">Emergencia</option>
         </select>
 
+        <!-- se presenta una sala al llamado -->
         <label for="sala">Selecciona una Sala:</label>
         <select name="sala" id="sala">
             <?php
@@ -92,40 +93,37 @@ include('../conexion/conexion.php');
         </select>
 
         <!-- Se le asigna personal -->
-        <label for="personal">Personal a asignar:</label>
-        <select name="personal" id="personal">
+        <label for="personal">Doctor a asignar:</label>
+        <select name="doctor" id="doctor">
             <?php
             // Consulta para obtener personal
-            $sql = "SELECT id, nombre, tipo, cargo FROM personal";
+            $sql = "SELECT id, nombre, cargo FROM personal WHERE tipo = 'medico'";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . ' ' . $row['tipo'] . ' ' . $row['cargo'] . "</option>";
+                    echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . '  ' . $row['cargo'] . "</option>";
                 }
-            } else {
-                echo "<option value=''>No hay personal disponibles</option>";
             }
             ?>
         </select>
 
-        <label for="paciente">Selecciona el paciente:</label>
-        <select name="paciente" id="paciente">
+        <!-- Se le asigna Enfermero -->
+        <label for="personal">Enfermero a asignar:</label>
+        <select name="enfermero" id="enfermero">
             <?php
-            // Consulta para obtener las pacientes disponibles
-            $sql = "SELECT id, nombre, apellido FROM paciente WHERE estado = 'espera'";
+            // Consulta para obtener personal
+            $sql = "SELECT id, nombre, tipo, cargo FROM personal WHERE tipo = 'enfermero'";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "<option value='" . $row['id'] . "'>" . $row['nombre'], ' ', $row['apellido'] . "</option>";
+                    echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . '  ' . $row['cargo'] . "</option>";
                 }
-            } else {
-                echo "<option value=''>No hay pacientes sin atender</option>";
             }
             ?>
         </select>
-
+        <!-- se le asigna una fecha al llamado -->
         <label for="fechaInicio">Fecha de Inicio:</label>
         <input type="datetime-local" name="fechaInicio" id="fechaInicio" required>
 
@@ -133,12 +131,9 @@ include('../conexion/conexion.php');
     </form>
 
     <audio src="../img/tone-evacuation.mp3" id="sonido"></audio>
+    <script src="js/main.js"></script>
 </body>
 
-<script src="js/main.js"></script>
 </html>
 
 <!-- el formulario funciona asi: se sube casi todos los datos(id,sala,paciente,fecha_inicio) a la tabla de sala_paciente mientras que el personal a asignar se sube en la tabla de sala_personal_asignado con el id del llamado -->
-
-<!-- <label for="fechaFin">Fecha de Fin:</label>
-        <input type="date" name="fechaFin" id="fechaFin" required> -->
