@@ -29,6 +29,20 @@ if ($result->num_rows > 0) {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="shortcut icon" href="../../img/fondazo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        form .content{
+            display: flex;
+            flex-direction: column;
+        }
+        form .content label {
+            margin: 5px;
+            display: block;
+        }
+
+        form select {
+            width: 100%;
+        }
+    </style>
     <title>Pacienetes | esperas</title>
 </head>
 
@@ -80,11 +94,169 @@ if ($result->num_rows > 0) {
     <?php else : ?>
         <!-- Mostrar un mensaje si no hay datos -->
         <div class="container">
-            <p>No se han cargado ningun Paciente.</p>
+            <p>No hay ningun Paciente en espera.</p>
         </div>
     <?php endif; ?>
 
-    <script src="atencion.js"></script>
+
+    <form action="darAtendido.php" method="post" id="formularioAtender" style="transform: translateX(-100%); position:absolute;top:15%;transition: all .3s ease-in; width: 500px; padding: 20px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);">
+        <label for="pacienteAsignar">Selecciona al paciente:</label>
+        <select name="pacienteAsignar" id="pacienteAsignar">
+            <?php
+            // Consulta para obtener los pacientes en espera
+            $sql = "SELECT id, nombre FROM paciente WHERE estado = 'espera'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . "</option>";
+                }
+            } else {
+                echo "<option value=''>No hay pacientes en espera</option>";
+            }
+            ?>
+        </select>
+
+        <label for="sala">Selecciona la Sala: </label>
+        <select name="sala" id="sala">
+            <?php
+            // Consulta para obtener las salas disponibles
+            $sql = "SELECT id, nombre FROM sala WHERE ocupacionActual < capacidadMaxima";
+
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . "</option>";
+                }
+            } else {
+                echo "<option value=''>No hay salas disponibles</option>";
+            }
+            ?>
+        </select>
+        
+        <div class="content">
+            <label for="doctor">Selecciona al doctor:</label>
+            <select name="doctor" id="doctor">
+                <?php
+                // Consulta para obtener los doctores disponibles
+                $sql = "SELECT id, nombre, cargo FROM personal WHERE tipo = 'medico' AND id NOT IN (SELECT idPersonal FROM sala_personal_asignado)";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . ' ' . $row['cargo'] . "</option>";
+                    }
+                } else {
+                    echo "<option value=''>No hay doctores disponibles</option>";
+                }
+                ?>
+            </select>
+
+            <label for="doctorDia">Día para el doctor:</label>
+            <select name="doctorDia" id="doctorDia">
+                <option value="Lunes">Lunes</option>
+                <option value="Martes">Martes</option>
+                <option value="Miercoles">Miercoles</option>
+                <option value="Jueves">Jueves</option>
+                <option value="Viernes">Viernes</option>
+                <option value="Sabado">Sabado</option>
+                <option value="Domingo">Domingo</option>
+                <!-- Agrega más opciones de días según tu necesidad -->
+            </select>
+
+            <label for="doctorTurno">Turno para el doctor:</label>
+            <select name="doctorTurno" id="doctorTurno">
+                <option value="M">Mañana</option>
+                <option value="T">Tarde</option>
+                <option value="N">Noche</option>
+                <!-- Agrega más opciones de turnos según tu necesidad -->
+            </select>
+        </div>
+
+        <div class="content">
+            <label for="enfermero1">Selecciona al primer enfermero:</label>
+            <select name="enfermero1" id="enfermero1">
+                <?php
+                // Consulta para obtener los enfermeros disponibles
+                $sql = "SELECT id, nombre, cargo FROM personal WHERE tipo = 'enfermero' AND id NOT IN (SELECT idPersonal FROM sala_personal_asignado)";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . ' '. $row['cargo']. "</option>";
+                    }
+                } else {
+                    echo "<option value=''>No hay enfermeros disponibles</option>";
+                }
+                ?>
+            </select>
+
+            <label for="enfermero1Dia">Día para el primer enfermero:</label>
+            <select name="enfermero1Dia" id="enfermero1Dia">
+                <option value="Lunes">Lunes</option>
+                <option value="Martes">Martes</option>
+                <option value="Miercoles">Miercoles</option>
+                <option value="Jueves">Jueves</option>
+                <option value="Viernes">Viernes</option>
+                <option value="Sabado">Sabado</option>
+                <option value="Domingo">Domingo</option>
+                <!-- Agrega más opciones de días según tu necesidad -->
+            </select>
+
+            <label for="enfermero1Turno">Turno para el primer enfermero:</label>
+            <select name="enfermero1Turno" id="enfermero1Turno">
+                <option value="M">Mañana</option>
+                <option value="T">Tarde</option>
+                <option value="N">Noche</option>
+                <!-- Agrega más opciones de turnos según tu necesidad -->
+            </select>
+        </div>
+
+        <div class="content">
+            <label for="enfermero2">Selecciona al segundo enfermero:</label>
+            <select name="enfermero2" id="enfermero2">
+                <?php
+                // Consulta para obtener los enfermeros disponibles
+                $sql = "SELECT id, nombre, cargo FROM personal WHERE tipo = 'enfermero' AND id NOT IN (SELECT idPersonal FROM sala_personal_asignado)";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<option value='" . $row['id'] . "'>" . $row['nombre'] .  ' '. $row['cargo']."</option>";
+                    }
+                } else {
+                    echo "<option value=''>No hay enfermeros disponibles</option>";
+                }
+                ?>
+            </select>
+
+            <label for="enfermero2Dia">Día para el segundo enfermero:</label>
+            <select name="enfermero2Dia" id="enfermero2Dia">
+                <option value="Lunes">Lunes</option>
+                <option value="Martes">Martes</option>
+                <option value="Miercoles">Miercoles</option>
+                <option value="Jueves">Jueves</option>
+                <option value="Viernes">Viernes</option>
+                <option value="Sabado">Sabado</option>
+                <option value="Domingo">Domingo</option>
+                <!-- Agrega más opciones de días según tu necesidad -->
+            </select>
+
+            <label for="enfermero2Turno">Turno para el segundo enfermero:</label>
+            <select name="enfermero2Turno" id="enfermero2Turno">
+                <option value="M">Mañana</option>
+                <option value="T">Tarde</option>
+                <option value="N">Noche</option>
+                <!-- Agrega más opciones de turnos según tu necesidad -->
+            </select>
+        </div>
+
+        <input type="submit" value="Asignar personal" style="margin-top: 20px;">
+    </form>
+
+
+    <script src="esperas.js"></script>
 </body>
 
 </html>
