@@ -9,7 +9,6 @@ $doctores = array(); // Creamos un arreglo para almacenar los datos de los médi
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $identificaciones[] = $row['id'];
-        $pacientes[] = $row['idPaciente'];
         $salas[] = $row['idSala'];
         $fechaInicios[] = $row['fechaHoraInicio'];
         $fechaFin[] = $row['fechaHoraFin'];
@@ -62,7 +61,6 @@ if ($result->num_rows > 0) {
                 <thead>
                     <tr>
                         <th>Identificación</th>
-                        <th>ID Paciente</th>
                         <th>ID Sala</th>
                         <th>Fecha Inicio</th>
                         <th>Fecha Finalizacion</th>
@@ -73,7 +71,6 @@ if ($result->num_rows > 0) {
                     <?php foreach ($identificaciones as $key => $id) : ?>
                         <tr>
                             <td><?php echo $id; ?></td>
-                            <td><?php echo $pacientes[$key]; ?></td>
                             <td><?php echo $salas[$key]; ?></td>
                             <td><?php echo $fechaInicios[$key]; ?></td>
                             <?php if ($fechaFin[$key] == "0000-00-00 00:00:00") : ?>
