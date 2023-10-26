@@ -121,13 +121,7 @@ if ($result->num_rows > 0) {
 
         <label for="historial">HIstorial del paciente:</label>
         <input type="text" id="historial" name="historial" required autocomplete="off"><br><br>
-
-        <label for="historial">Estado del paciente:</label>
-        <select name="estado" id="estado">
-            <option value="alta">alta</option>
-            <option value="baja">baja</option>
-            <option value="espera">espera</option>
-        </select><br><br>
+        
         <input type="submit" value="Agregar paciente">
     </form>
 
