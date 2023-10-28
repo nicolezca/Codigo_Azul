@@ -99,6 +99,7 @@ if ($result->num_rows > 0) {
                         <th id="telefono">capacidad Maxima</th>
                         <th>ocupacion actual</th>
                         <th>estado</th>
+                        <th>info</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -116,6 +117,13 @@ if ($result->num_rows > 0) {
                                 <?php else : ?>
                                     <span class='ver-pacientes-btn ocupado' disabled>Ocupado</span>
                                 <?php endif; ?>
+                            </td>
+                            <td>
+                                <form id="mostrarInfoSalaForm" method="post" action="mostarInfoSala.php">
+                                    <input type="hidden" name="idSala" value="<?php echo $id; ?>">
+                                    <input type="submit" value="Informacion de Sala">
+                                </form>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>
