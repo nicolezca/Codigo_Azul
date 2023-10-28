@@ -88,7 +88,7 @@ if ($result->num_rows > 0) {
     <?php else : ?>
         <!-- Mostrar un mensaje si no hay datos -->
         <div class="container">
-            <p>No se han cargado ningun Paciente.</p>
+            <p>No se han cargado ningun llamado.</p>
         </div>
     <?php endif; ?>
 
