@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nombreingreso"]) && is
                 exit();
             } else {
                 echo "Error en el registro: " . $conn->error;
-                echo '<a href="../formulario.html">Volver a intentar</a>';
+                echo '<a href="login.php">Volver a intentar</a>';
             }
         }
     }
