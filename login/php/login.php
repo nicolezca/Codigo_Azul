@@ -1,6 +1,8 @@
 <?php
     include('../../conexion/conexion.php');
 
+    session_start();
+
 // Procesar inicio de sesión
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nombre"]) && isset($_POST["clave"])) {
     $nombre = $_POST["nombre"];
@@ -15,7 +17,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nombre"]) && isset($_PO
         $result = $conn->query($sql);
         
         if ($result->num_rows == 1) {
-            session_start();
             $_SESSION["nombre"] = $nombre;
             $_SESSION["clave"] = $clave;
             header("Location: ../../inicio/inicio.php");
