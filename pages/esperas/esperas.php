@@ -70,10 +70,11 @@ if ($result->num_rows > 0) {
                 <thead>
                     <tr>
                         <th>Identificación</th>
-                        <th>ID Sala</th>
-                        <th>ID Paciente</th>
-                        <th>Fecha ingreso</th>
-                        <th>Fecha Egreso</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>Telefono</th>
+                        <th>Obra Social</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,9 +100,9 @@ if ($result->num_rows > 0) {
     <?php endif; ?>
 
 
-    <form action="darAtendido.php" method="post" id="formularioAtender" style="transform: translateX(-100%); position:absolute;top:15%;transition: all .3s ease-in; width: 500px; padding: 20px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);">
+    <form action="darAtendido.php" method="post" id="formularioAtender" style="background-color:white;transform: translateX(-100%); position:absolute;top:10%;transition: all .3s ease-in; width: 500px; padding: 20px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);">
         <label for="pacienteAsignar">Selecciona al paciente:</label>
-        <select name="pacienteAsignar" id="pacienteAsignar">
+        <select name="pacienteAsignar" id="pacienteAsignar" require>
             <?php
             // Consulta para obtener los pacientes en espera
             $sql = "SELECT id, nombre FROM paciente WHERE estado = 'espera'";
@@ -118,7 +119,7 @@ if ($result->num_rows > 0) {
         </select>
 
         <label for="sala">Selecciona la Sala: </label>
-        <select name="sala" id="sala">
+        <select name="sala" id="sala" require>
             <?php
             // Consulta para obtener las salas disponibles
             $sql = "SELECT id, nombre FROM sala WHERE ocupacionActual < capacidadMaxima";
@@ -137,7 +138,7 @@ if ($result->num_rows > 0) {
         
         <div class="content">
             <label for="doctor">Selecciona al doctor:</label>
-            <select name="doctor" id="doctor">
+            <select name="doctor" id="doctor" require>
                 <?php
                 // Consulta para obtener los doctores disponibles
                 $sql = "SELECT id, nombre, cargo FROM personal WHERE tipo = 'medico' AND id NOT IN (SELECT idPersonal FROM sala_personal_asignado)";
@@ -154,7 +155,7 @@ if ($result->num_rows > 0) {
             </select>
 
             <label for="doctorDia">Día para el doctor:</label>
-            <select name="doctorDia" id="doctorDia">
+            <select name="doctorDia" id="doctorDia" require>
                 <option value="Lunes">Lunes</option>
                 <option value="Martes">Martes</option>
                 <option value="Miercoles">Miercoles</option>
@@ -166,7 +167,7 @@ if ($result->num_rows > 0) {
             </select>
 
             <label for="doctorTurno">Turno para el doctor:</label>
-            <select name="doctorTurno" id="doctorTurno">
+            <select name="doctorTurno" id="doctorTurno" require>
                 <option value="M">Mañana</option>
                 <option value="T">Tarde</option>
                 <option value="N">Noche</option>
@@ -176,10 +177,10 @@ if ($result->num_rows > 0) {
 
         <div class="content">
             <label for="enfermero1">Selecciona al primer enfermero:</label>
-            <select name="enfermero1" id="enfermero1">
+            <select name="enfermero1" id="enfermero1" require>
                 <?php
                 // Consulta para obtener los enfermeros disponibles
-                $sql = "SELECT id, nombre, cargo FROM personal WHERE tipo = 'enfermero' AND id NOT IN (SELECT idPersonal FROM sala_personal_asignado)";
+                $sql = "SELECT id, nombre, cargo FROM personal WHERE tipo = 'enfermero' ";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -193,7 +194,7 @@ if ($result->num_rows > 0) {
             </select>
 
             <label for="enfermero1Dia">Día para el primer enfermero:</label>
-            <select name="enfermero1Dia" id="enfermero1Dia">
+            <select name="enfermero1Dia" id="enfermero1Dia" require>
                 <option value="Lunes">Lunes</option>
                 <option value="Martes">Martes</option>
                 <option value="Miercoles">Miercoles</option>
@@ -205,7 +206,7 @@ if ($result->num_rows > 0) {
             </select>
 
             <label for="enfermero1Turno">Turno para el primer enfermero:</label>
-            <select name="enfermero1Turno" id="enfermero1Turno">
+            <select name="enfermero1Turno" id="enfermero1Turno" require>
                 <option value="M">Mañana</option>
                 <option value="T">Tarde</option>
                 <option value="N">Noche</option>
@@ -215,10 +216,10 @@ if ($result->num_rows > 0) {
 
         <div class="content">
             <label for="enfermero2">Selecciona al segundo enfermero:</label>
-            <select name="enfermero2" id="enfermero2">
+            <select name="enfermero2" id="enfermero2" require>
                 <?php
                 // Consulta para obtener los enfermeros disponibles
-                $sql = "SELECT id, nombre, cargo FROM personal WHERE tipo = 'enfermero' AND id NOT IN (SELECT idPersonal FROM sala_personal_asignado)";
+                $sql = "SELECT id, nombre, cargo FROM personal WHERE tipo = 'enfermero'";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -232,7 +233,7 @@ if ($result->num_rows > 0) {
             </select>
 
             <label for="enfermero2Dia">Día para el segundo enfermero:</label>
-            <select name="enfermero2Dia" id="enfermero2Dia">
+            <select name="enfermero2Dia" id="enfermero2Dia" require>
                 <option value="Lunes">Lunes</option>
                 <option value="Martes">Martes</option>
                 <option value="Miercoles">Miercoles</option>
@@ -244,13 +245,15 @@ if ($result->num_rows > 0) {
             </select>
 
             <label for="enfermero2Turno">Turno para el segundo enfermero:</label>
-            <select name="enfermero2Turno" id="enfermero2Turno">
+            <select name="enfermero2Turno" id="enfermero2Turno" require>
                 <option value="M">Mañana</option>
                 <option value="T">Tarde</option>
                 <option value="N">Noche</option>
                 <!-- Agrega más opciones de turnos según tu necesidad -->
             </select>
         </div>
+        <label for="horaIngreso">Ingresar Hora de Atencion</label>
+        <input type="datetime-local" name="horaIngreso" id="horaIngresos" require>
 
         <input type="submit" value="Asignar personal" style="margin-top: 20px;">
     </form>
