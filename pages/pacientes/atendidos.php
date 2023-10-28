@@ -4,7 +4,7 @@ include('../../conexion/conexion.php');
 $sql = 'SELECT p.id,p.nombre,p.apellido,p.dni,p.telefono,p.obraSocial, h.contenido
         FROM paciente p
         LEFT JOIN historia_clinica h ON p.id = h.idPaciente
-        WHERE p.estado = "baja"
+        WHERE p.estado = "atendido"
         AND h.id IN (
             SELECT MAX(id) FROM historia_clinica GROUP BY idPaciente
         )';
@@ -104,7 +104,7 @@ if ($result->num_rows > 0) {
         <select name="paciente" id="paciente">
             <?php
             // Consulta para obtener las pacientes disponibles
-            $sql = "SELECT id, nombre, apellido FROM paciente WHERE estado = 'baja'";
+            $sql = "SELECT id, nombre, apellido FROM paciente WHERE estado = 'atendido'";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
