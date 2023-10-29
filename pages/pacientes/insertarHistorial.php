@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $historiaClinica = $_POST['historial'];
 
     // Realiza la inserción en la tabla de historia_clínica
-    $sqlInsertHistoria = "INSERT INTO historia_clinica (idPaciente, contendio) VALUES ($idPaciente, '$historiaClinica')";
+    $sqlInsertHistoria = "INSERT INTO historia_clinica (idPaciente, contenido) VALUES ($idPaciente, '$historiaClinica')";
 
     // La historia clínica se insertó con éxito
     if ($conn->query($sqlInsertHistoria) === true) {
