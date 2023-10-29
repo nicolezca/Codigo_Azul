@@ -13,6 +13,18 @@ document.addEventListener("DOMContentLoaded", function () {
             formulario.style.transform = "translateX(-100%)";
         }
     });
+        
+    const btnHistorial = document.getElementById("pacienteExistente");
+    const formHistorial = document.getElementById("HistorialNuevo");
+    
+    formHistorial.style.transform = "translateX(-100%)";
+    btnHistorial.addEventListener("click", function () {
+        if (formHistorial.style.transform === "translateX(-100%)") {
+            formHistorial.style.transform = "translateX(0)";
+        } else {
+            formHistorial.style.transform = "translateX(-100%)";
+        }
+    });
 
     
     
