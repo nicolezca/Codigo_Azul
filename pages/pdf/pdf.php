@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_paciente"])) {
         $paciente = $result->fetch_assoc();
         
          // Consulta para obtener la historia clínica del paciente
-         $sqlHistoria = "SELECT contenido FROM historia_clinica WHERE idPaciente = $id_paciente";
+         $sqlHistoria = "SELECT contenido FROM historia_clinica WHERE idPaciente = $id_paciente ORDER BY id DESC LIMIT 1";
          $resultHistoria = $conn->query($sqlHistoria);
 
          if ($resultHistoria->num_rows > 0) {
