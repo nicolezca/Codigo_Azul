@@ -28,6 +28,36 @@ if ($result->num_rows > 0) {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/styles.css">
     <title>Pacientes</title>
+    <style>
+        .formularioHistorial{
+            box-shadow: 0 0 15px gray;
+            padding: 20px;
+            position: absolute;
+            top: 20%;
+            background-color: white;     
+            transform:translateX(-100%);       
+            transition: all .3s ease-in;
+        }
+
+        .formularioHistorial label{
+            margin: 10px 0;
+            display: block;
+        }
+        .formularioHistorial textarea{
+            width: 500px;
+            height: 200px;
+            background-color: rgba(0, 0, 0, .1);
+            outline: none;
+            border: none;
+            padding: 20px;  
+            resize: none;
+        }
+        .formularioHistorial input[type="submit"]{
+            display: block;
+            margin-top: 20px;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -45,6 +75,7 @@ if ($result->num_rows > 0) {
     <nav>
         <div class="agregarDoc">
             <button id="mostrarFormulario">nuevo paciente</button>
+            <button id="pacienteExistente">Nuevo Historial</button>
         </div>
         <div class="filtrar">
             <i class='bx bx-filter-alt'></i>
@@ -123,6 +154,28 @@ if ($result->num_rows > 0) {
         <input type="text" id="historial" name="historial" required autocomplete="off"><br><br>
         
         <input type="submit" value="Agregar paciente">
+    </form>
+
+    <form action="" method="post" id="HistorialNuevo" class="formularioHistorial">
+        <label for="paciente">Selecciona al Paciente</label>
+        <select name="paciente" id="paciente" require>
+            <?php
+            
+            $sql = "SELECT id,nombre, apellido FROM paciente WHERE estado='fuera'";
+            
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . '  ' . $row['apellido'] . "</option>";
+                }
+            }
+            ?>
+?>
+        </select>
+        <label for="historial">historia Clinica</label>
+        <textarea name="historial" id="historial"></textarea>  
+        <input type="submit" value="Insertar">
     </form>
 
 </body>
