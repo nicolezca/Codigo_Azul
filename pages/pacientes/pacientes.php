@@ -156,7 +156,7 @@ if ($result->num_rows > 0) {
         <input type="submit" value="Agregar paciente">
     </form>
 
-    <form action="" method="post" id="HistorialNuevo" class="formularioHistorial">
+    <form action="insertarHistorial.php" method="post" id="HistorialNuevo" class="formularioHistorial">
         <label for="paciente">Selecciona al Paciente</label>
         <select name="paciente" id="paciente" require>
             <?php
