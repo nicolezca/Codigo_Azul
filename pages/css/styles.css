@@ -45,7 +45,7 @@ transition: all .3s ease-in;
     border-radius: 10px;
     border: none;
 }
-.agregarDoc:hover button{
+.agregarDoc button:hover{
     background-color: white;
     color: blue;
     outline: 1px solid blue;
