@@ -1,0 +1,124 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    overflow-x: hidden;
+    
+}
+header {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.122);
+}
+header a{
+    display: flex;
+    text-decoration: none;
+    color: blue;
+}
+header a .logo i{
+font-size: 40px;
+}
+
+header a .titulo span{
+    font-size: 20px;
+    display: block;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+}
+
+
+.container{
+    width: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.sala{      
+    margin-bottom: 50px;
+    width: 100%;
+    box-shadow: 0 0 15px gray;
+}
+
+.sala h2{
+    color: blue;
+    padding: 10px;
+    border-bottom: 1px solid blue;
+    margin-bottom: .5em;
+}
+
+.sala span{
+    padding: 10px;
+    display: block;
+    color: gray;
+
+}
+
+.infoSala{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 15px gray;
+    column-gap: 20px;
+}
+
+.infoSala .personas{
+    padding: 10px;
+    width: 50%;
+}
+
+.infoSala .personas .navegacion{
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   padding-bottom: 5px;
+   margin-bottom: 20px;
+   border-bottom: 1px solid blue;
+}
+
+.personas .navegacion  i{
+    color: blue;
+    font-size: 30px;
+    margin-right: .2em;
+}
+
+.personas .navegacion h2{
+    font-family: monospace;
+}
+
+.personas .infoPersona  .nombre{
+    color: blue;
+    font-size: 25px;
+
+}
+
+.personas .infoPersona  .estado{
+    color: gray;
+}
+
+
+.infoPersona .info{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    border-bottom: 1px solid blue;
+}
+
+
+.info span{
+    color: black;
+    display: block;
+    margin: 5px 0;
+}
