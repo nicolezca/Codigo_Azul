@@ -20,6 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["paciente"]) && isset($
         // Reducir la ocupación actual de la sala en 1
         $sqlReducirOcupacion = "UPDATE sala SET ocupacionActual = ocupacionActual - 1 WHERE id = $idSala";
         $conn->query($sqlReducirOcupacion);
+        //Eliminar el registro de sala_personal_asignado correspondiente al paciente dado de alta
+        $sqlEliminarAsignacion = "DELETE FROM sala_personal_asignado WHERE idSala = $idSala";
+        $conn->query($sqlEliminarAsignacion);
+
     }
 
     // Actualizar el estado del paciente a "fuera"
