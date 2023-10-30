@@ -26,11 +26,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sala"]) && isset($_POS
         $sqlEnfermero = "INSERT INTO llamado_personal (idLlamado, idPersonal) VALUES ('$idLlamado', '$enfermero')";
         if ($conn->query($sqlEnfermero) !== TRUE) {
             echo "Error al asignar el enfermero a la llamada: " . $conn->error;
-        }else{
-            header(
-                "Location: ../inicio.php"
-            );
-            exit();
+        } else {
+            // Consulta para obtener el nombre de la sala
+            $sqlSalaNombre = "SELECT nombre FROM sala WHERE id = 1";
+            $resultSalaNombre = $conn->query($sqlSalaNombre);
+
+            if ($resultSalaNombre->num_rows > 0) {
+                $rowSalaNombre = $resultSalaNombre->fetch_assoc();
+                $nombreSala = $rowSalaNombre['nombre'];
+
+                // Inicia la sesión
+                session_start();
+
+                // Guardar el nombre de la sala en una variable de sesión
+                $_SESSION['nombre'] = $nombreSala;
+
+                // Redirige a la página de inicio
+                header("Location: alertarpersonal.php");
+                exit();
+            } else {
+                echo "No se encontró ninguna sala con el ID proporcionado.";
+            }
         }
     } else {
         echo "Error al insertar el llamado: " . $conn->error;
