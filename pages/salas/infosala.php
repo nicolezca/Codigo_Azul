@@ -21,7 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["idSala"])) {
     // Consulta para obtener los pacientes en la sala
     $pacienteQuery = "SELECT paciente.* FROM sala_paciente
                      INNER JOIN paciente ON sala_paciente.idPaciente = paciente.id
-                     WHERE sala_paciente.idSala = $idSala";
+                     WHERE sala_paciente.idSala = $idSala 
+                     AND paciente.estado ='atendido'";
     $pacienteResult = $conn->query($pacienteQuery);
 
     if ($pacienteResult === false) {
