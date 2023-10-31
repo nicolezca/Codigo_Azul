@@ -13,40 +13,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sala"]) && isset($_POS
     $sql = "INSERT INTO llamado (idSala, fechaHoraInicio, fechaHoraFin, prioridadLlamada) VALUES ('$sala', '$fechaInicio', ' ', '$prioridad')";
 
     if ($conn->query($sql) === TRUE) {
-        // Obten el idLlamado generado automáticamente
         $idLlamado = $conn->insert_id;
 
-        // Insertar el doctor asignado al llamado
-        $sqlDoctor = "INSERT INTO llamado_personal (idLlamado, idPersonal) VALUES ('$idLlamado', '$doctor')";
-        if ($conn->query($sqlDoctor) !== TRUE) {
-            echo "Error al asignar el doctor a la llamada: " . $conn->error;
-        }
+        // Consulta para obtener el nombre de la sala
+        $sqlSalaNombre = "SELECT nombre FROM sala WHERE id = $sala";
+        $resultSalaNombre = $conn->query($sqlSalaNombre);
 
-        // Insertar el enfermero asignado al llamado
-        $sqlEnfermero = "INSERT INTO llamado_personal (idLlamado, idPersonal) VALUES ('$idLlamado', '$enfermero')";
-        if ($conn->query($sqlEnfermero) !== TRUE) {
-            echo "Error al asignar el enfermero a la llamada: " . $conn->error;
-        } else {
-            // Consulta para obtener el nombre de la sala
-            $sqlSalaNombre = "SELECT nombre FROM sala WHERE id = 1";
-            $resultSalaNombre = $conn->query($sqlSalaNombre);
+        if ($resultSalaNombre->num_rows > 0) {
+            $rowSalaNombre = $resultSalaNombre->fetch_assoc();
+            $nombreSala = $rowSalaNombre['nombre'];
 
-            if ($resultSalaNombre->num_rows > 0) {
-                $rowSalaNombre = $resultSalaNombre->fetch_assoc();
-                $nombreSala = $rowSalaNombre['nombre'];
+            // Consulta para obtener el teléfono del doctor
+            $sqlTelefonoDoctor = "SELECT telefono FROM personal WHERE id = $doctor";
+            $resultTelefonoDoctor = $conn->query($sqlTelefonoDoctor);
 
-                // Inicia la sesión
-                session_start();
+            if ($resultTelefonoDoctor->num_rows > 0) {
+                $rowTelefonoDoctor = $resultTelefonoDoctor->fetch_assoc();
+                $telefonoDoctor = $rowTelefonoDoctor['telefono'];
 
-                // Guardar el nombre de la sala en una variable de sesión
-                $_SESSION['nombre'] = $nombreSala;
+                // Consulta para obtener el teléfono del enfermero
+                $sqlTelefonoEnfermero = "SELECT telefono FROM personal WHERE id = $enfermero";
+                $resultTelefonoEnfermero = $conn->query($sqlTelefonoEnfermero);
 
-                // Redirige a la página de inicio
-                header("Location: alertarpersonal.php");
-                exit();
+                if ($resultTelefonoEnfermero->num_rows > 0) {
+                    $rowTelefonoEnfermero = $resultTelefonoEnfermero->fetch_assoc();
+                    $telefonoEnfermero = $rowTelefonoEnfermero['telefono'];
+
+                    session_start();
+                    $_SESSION['nombre'] = $nombreSala;
+                    $_SESSION['telefono_doctor'] = $telefonoDoctor;
+                    $_SESSION['telefono_enfermero'] = $telefonoEnfermero;
+
+                    // Redirige a la página de inicio
+                    header("Location: alertarpersonal.php");
+                    exit();
+                } else {
+                    echo "No se encontró ningún enfermero con el ID proporcionado.";
+                }
             } else {
-                echo "No se encontró ninguna sala con el ID proporcionado.";
+                echo "No se encontró ningún doctor con el ID proporcionado.";
             }
+        } else {
+            echo "No se encontró ninguna sala con el ID proporcionado.";
         }
     } else {
         echo "Error al insertar el llamado: " . $conn->error;
