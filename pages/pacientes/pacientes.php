@@ -35,30 +35,32 @@ if ($result->num_rows > 0) {
     <link rel="stylesheet" href="../css/styles.css">
     <title>Pacientes</title>
     <style>
-        .formularioHistorial{
+        .formularioHistorial {
             box-shadow: 0 0 15px gray;
             padding: 20px;
             position: absolute;
             top: 20%;
-            background-color: white;     
-            transform:translateX(-100%);       
+            background-color: white;
+            transform: translateX(-100%);
             transition: all .3s ease-in;
         }
 
-        .formularioHistorial label{
+        .formularioHistorial label {
             margin: 10px 0;
             display: block;
         }
-        .formularioHistorial textarea{
+
+        .formularioHistorial textarea {
             width: 500px;
             height: 200px;
             background-color: rgba(0, 0, 0, .1);
             outline: none;
             border: none;
-            padding: 20px;  
+            padding: 20px;
             resize: none;
         }
-        .formularioHistorial input[type="submit"]{
+
+        .formularioHistorial input[type="submit"] {
             display: block;
             margin-top: 20px;
         }
@@ -71,8 +73,8 @@ if ($result->num_rows > 0) {
             <div class="logo">
                 <i class='bx bx-plus-medical'></i>
             </div>
-            <div class "titulo">
-                <span>PixelPioneers</span>
+            <div class="titulo">
+                <span>PixelPionners</span>
                 <span>Hospital</span>
             </div>
         </a>
@@ -155,7 +157,7 @@ if ($result->num_rows > 0) {
 
         <label for="historial">Historial del paciente:</label>
         <input type="text" id="historial" name="historial" required autocomplete="off"><br><br>
-        
+
         <input type="submit" value="Agregar paciente">
     </form>
 
@@ -174,7 +176,7 @@ if ($result->num_rows > 0) {
             ?>
         </select>
         <label for="historial">Historia Clínica</label>
-        <textarea name="historial" id="historial"></textarea>  
+        <textarea name="historial" id="historial"></textarea>
         <input type="submit" value="Insertar">
     </form>
 
