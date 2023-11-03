@@ -27,31 +27,46 @@ if (
     $enfermero2Dia = $_POST['enfermero2Dia'];
     $enfermero2Turno = $_POST['enfermero2Turno'];
 
-    $salaPaciente = "INSERT INTO sala_paciente (idSala, idPaciente, fechaHoraIngreso, fechaHoraEgreso) VALUES ($sala, $pacienteId, '$fechaIngreso', ' ')";
+    // Insertar el paciente en la sala de forma segura con una consulta preparada
+    $salaPacienteQuery = $conn->prepare("INSERT INTO sala_paciente (idSala, idPaciente, fechaHoraIngreso, fechaHoraEgreso) VALUES (?, ?, ?, ' ')");
+    $salaPacienteQuery->bind_param("iss", $sala, $pacienteId, $fechaIngreso);
+    if ($salaPacienteQuery->execute()) {
+        // Crear un array de asignaciones de personal
+        $personalAsignado = array(
+            array($doctorId, $doctorDia, $doctorTurno),
+            array($enfermero1Id, $enfermero1Dia, $enfermero1Turno),
+            array($enfermero2Id, $enfermero2Dia, $enfermero2Turno)
+        );
 
-    if ($conn->query($salaPaciente) === TRUE) {
-        // Insertar los registros en la tabla sala_personal_asignado
-        $sql = "INSERT INTO sala_personal_asignado (idPersonal, idSala, dias, turno) VALUES
-                            ($doctorId, $sala, '$doctorDia', '$doctorTurno'),
-                            ($enfermero1Id, $sala, '$enfermero1Dia', '$enfermero1Turno'),
-                            ($enfermero2Id, $sala, '$enfermero2Dia', '$enfermero2Turno')";
+        // Insertar las asignaciones de personal de forma segura con una consulta preparada
+        $salaPersonalQuery = $conn->prepare("INSERT INTO sala_personal_asignado (idPersonal, idSala, dias, turno) VALUES (?, ?, ?, ?)");
+        $salaPersonalQuery->bind_param("isss", $personalId, $sala, $dias, $turno);
 
-        if ($conn->multi_query($sql) === TRUE) {
-            // Actualizar la ocupación de la sala en la tabla sala
-            $updateSalaSql = "UPDATE sala SET ocupacionActual = ocupacionActual + 1 WHERE id = $sala";
-            if ($conn->query($updateSalaSql) === TRUE) {
-                // Cambiar el estado del paciente a "atendido" en la tabla paciente
-                $updatePacienteSql = "UPDATE paciente SET estado = 'atendido' WHERE id = $pacienteId";
-                if ($conn->query($updatePacienteSql) === TRUE) {
-                    header("Location: ../salas/salas.php");
-                } else {
-                    echo "Error al actualizar el estado del paciente: " . $conn->error;
-                }
+        foreach ($personalAsignado as list($personalId, $dias, $turno)) {
+            if (!$salaPersonalQuery->execute()) {
+                echo "Error en la asignación de personal: " . $conn->error;
+                exit;
+            }
+        }
+
+        // Actualizar la ocupación de la sala en la tabla sala
+        $updateSalaSql = "UPDATE sala SET ocupacionActual = ocupacionActual + 1 WHERE id = ?";
+        $updateSalaQuery = $conn->prepare($updateSalaSql);
+        $updateSalaQuery->bind_param("i", $sala);
+
+        if ($updateSalaQuery->execute()) {
+            // Cambiar el estado del paciente a "atendido" en la tabla paciente
+            $updatePacienteSql = "UPDATE paciente SET estado = 'atendido' WHERE id = ?";
+            $updatePacienteQuery = $conn->prepare($updatePacienteSql);
+            $updatePacienteQuery->bind_param("i", $pacienteId);
+
+            if ($updatePacienteQuery->execute()) {
+                header("Location: ../salas/salas.php");
             } else {
-                echo "Error al actualizar la ocupación de la sala: " . $conn->error;
+                echo "Error al actualizar el estado del paciente: " . $conn->error;
             }
         } else {
-            echo "Error en la asignación: " . $conn->error;
+            echo "Error al actualizar la ocupación de la sala: " . $conn->error;
         }
     } else {
         echo "Error al Insertar Paciente a la sala" . $conn->error;
