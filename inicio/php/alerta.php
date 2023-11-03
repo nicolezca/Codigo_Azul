@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sala"]) && isset($_POS
     $prioridad = $_POST['prioridad'];
 
     // Primero, se inserta en la tabla llamado
-    $sql = "INSERT INTO llamado (idSala, fechaHoraInicio, fechaHoraFin, prioridadLlamada) VALUES ('$sala', '$fechaInicio', ' ', '$prioridad')";
+    $sql = "INSERT INTO llamado (idSala, fechaHoraInicio, prioridadLlamada) VALUES ('$sala', '$fechaInicio',  '$prioridad')";
 
     if ($conn->query($sql) === TRUE) {
         $idLlamado = $conn->insert_id;
