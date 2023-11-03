@@ -1,31 +1,23 @@
 
 document.addEventListener("DOMContentLoaded", function () {
-    const btnform = document.getElementById("mostrarFormulario");
-    const formulario = document.getElementById("formDoc");
-
-    // Establece un valor predeterminado para el estilo transform
-    formulario.style.transform = "translateX(-100%)";
+    function toggleFormVisibility(buttonId, formId) {
+        const btn = document.getElementById(buttonId);
+        const form = document.getElementById(formId);
     
-    btnform.addEventListener("click", function () {
-        if (formulario.style.transform === "translateX(-100%)") {
-            formulario.style.transform = "translateX(0)";
-        } else {
-            formulario.style.transform = "translateX(-100%)";
-        }
-    });
-        
-    const btnHistorial = document.getElementById("pacienteExistente");
-    const formHistorial = document.getElementById("HistorialNuevo");
+        form.style.transform = "translateX(-100%)";
     
-    formHistorial.style.transform = "translateX(-100%)";
-    btnHistorial.addEventListener("click", function () {
-        if (formHistorial.style.transform === "translateX(-100%)") {
-            formHistorial.style.transform = "translateX(0)";
-        } else {
-            formHistorial.style.transform = "translateX(-100%)";
-        }
-    });
-
+        btn.addEventListener("click", function () {
+            if (form.style.transform === "translateX(-100%)") {
+                form.style.transform = "translateX(0)";
+            } else {
+                form.style.transform = "translateX(-100%)";
+            }
+        });
+    }
+    
+    toggleFormVisibility("mostrarFormulario", "formDoc");
+    toggleFormVisibility("pacienteExistente", "HistorialNuevo");
+    
     
     
     //filtrado por DNI y ESTADO(alta,baja,espera)

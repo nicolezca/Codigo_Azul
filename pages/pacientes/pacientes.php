@@ -4,7 +4,13 @@ include('../../conexion/conexion.php');
 $sql = 'SELECT id,nombre,apellido,dni,telefono,obraSocial,estado FROM paciente';
 $result = $conn->query($sql);
 
-$doctores = array(); // Creamos un arreglo para almacenar los datos de los médicos
+$identificaciones = [];
+$doctores = [];
+$apellidos = [];
+$dni = [];
+$telefonos = [];
+$sociales = [];
+$estados = [];
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -56,7 +62,6 @@ if ($result->num_rows > 0) {
             display: block;
             margin-top: 20px;
         }
-
     </style>
 </head>
 
@@ -66,8 +71,8 @@ if ($result->num_rows > 0) {
             <div class="logo">
                 <i class='bx bx-plus-medical'></i>
             </div>
-            <div class="titulo">
-                <span>PixelPionners</span>
+            <div class "titulo">
+                <span>PixelPioneers</span>
                 <span>Hospital</span>
             </div>
         </a>
@@ -88,9 +93,8 @@ if ($result->num_rows > 0) {
             </select>
             <button id="aplicarFiltro">Aplicar Filtro</button>
         </div>
-
     </nav>
-    <?php if (isset($identificaciones) && count($identificaciones) > 0) : ?>
+    <?php if (!empty($identificaciones)) : ?>
         <div class="container">
             <table id="Tabla">
                 <thead>
@@ -102,7 +106,7 @@ if ($result->num_rows > 0) {
                         <th id="telefono">Teléfono</th>
                         <th>Obra Social</th>
                         <th>Estado</th>
-                        <th>historial</th>
+                        <th>Historial</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -125,12 +129,11 @@ if ($result->num_rows > 0) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-
         </div>
-        <?php else : ?>
+    <?php else : ?>
         <!-- Mostrar un mensaje si no hay datos -->
         <div class="container">
-            <p>No se han cargado ningun Paciente.</p>
+            <p>No se han cargado ningún Paciente.</p>
         </div>
     <?php endif; ?>
 
@@ -139,18 +142,18 @@ if ($result->num_rows > 0) {
         <input type="text" id="nombre" name="nombre" required autocomplete="off"><br><br>
 
         <label for="apellido">Apellidos del paciente:</label>
-        <input type="text" id="apellido" name="apellido" required autocomplete="off"><br><br>
+        <input type="text" id="apellido" name "apellido" required autocomplete="off"><br><br>
 
         <label for="dni">DNI del paciente:</label>
         <input type="text" id="dni" name="dni" required autocomplete="off"><br><br>
 
-        <label for="telefno">Telefono del paciente:</label>
-        <input type="text" id="telefno" name="telefono" required autocomplete="off"><br><br>
+        <label for="telefono">Telefono del paciente:</label>
+        <input type="text" id="telefono" name="telefono" required autocomplete="off"><br><br>
 
         <label for="social">Obra social del paciente:</label>
         <input type="text" id="social" name="social" required autocomplete="off"><br><br>
 
-        <label for="historial">HIstorial del paciente:</label>
+        <label for="historial">Historial del paciente:</label>
         <input type="text" id="historial" name="historial" required autocomplete="off"><br><br>
         
         <input type="submit" value="Agregar paciente">
@@ -158,11 +161,9 @@ if ($result->num_rows > 0) {
 
     <form action="insertarHistorial.php" method="post" id="HistorialNuevo" class="formularioHistorial">
         <label for="paciente">Selecciona al Paciente</label>
-        <select name="paciente" id="paciente" require>
+        <select name="paciente" id="paciente" required>
             <?php
-            
             $sql = "SELECT id,nombre, apellido FROM paciente WHERE estado='fuera'";
-            
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -171,9 +172,8 @@ if ($result->num_rows > 0) {
                 }
             }
             ?>
-?>
         </select>
-        <label for="historial">historia Clinica</label>
+        <label for="historial">Historia Clínica</label>
         <textarea name="historial" id="historial"></textarea>  
         <input type="submit" value="Insertar">
     </form>
