@@ -4,7 +4,11 @@ include('../../conexion/conexion.php');
 $sql = 'SELECT * FROM llamado';
 $result = $conn->query($sql);
 
-$doctores = array(); // Creamos un arreglo para almacenar los datos de los médicos
+$identificaciones = [];
+$salas = [];
+$fechaInicios = [];
+$fechaFin = [];
+$tipoLlamado = [];
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -17,8 +21,6 @@ if ($result->num_rows > 0) {
 }
 ?>
 
-<!-- HTML -->
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -28,7 +30,7 @@ if ($result->num_rows > 0) {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="shortcut icon" href="../../img/fondazo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/styles.css">
-    <title>atencion</title>
+    <title>Atencion</title>
 </head>
 
 <body>
@@ -38,7 +40,7 @@ if ($result->num_rows > 0) {
                 <i class='bx bx-plus-medical'></i>
             </div>
             <div class="titulo">
-                <span>PixelPionners</span>
+                <span>PixelPioneers</span>
                 <span>Hospital</span>
             </div>
         </a>
@@ -48,14 +50,13 @@ if ($result->num_rows > 0) {
             <i class='bx bx-filter-alt'></i>
             <select name="filter_estado" id="filter_estado">
                 <option value="">Todos</option>
-                <option value="emergencia">emergencia</option>
-                <option value="normal">normal</option>
+                <option value="emergencia">Emergencia</option>
+                <option value="normal">Normal</option>
             </select>
             <button id="aplicarFiltro">Aplicar Filtro</button>
         </div>
-
     </nav>
-    <?php if (isset($identificaciones) && count($identificaciones) > 0) : ?>
+    <?php if (!empty($identificaciones)) : ?>
         <div class="container">
             <table id="Tabla">
                 <thead>
@@ -63,8 +64,8 @@ if ($result->num_rows > 0) {
                         <th>Identificación</th>
                         <th>ID Sala</th>
                         <th>Fecha Inicio</th>
-                        <th>Fecha Finalizacion</th>
-                        <th>Tipo de llamado</th>
+                        <th>Fecha Finalización</th>
+                        <th>Tipo de Llamado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,15 +84,14 @@ if ($result->num_rows > 0) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-
         </div>
     <?php else : ?>
         <!-- Mostrar un mensaje si no hay datos -->
         <div class="container">
-            <p>No se han cargado ningun llamado.</p>
+            <p>No se han cargado ningún llamado.</p>
         </div>
     <?php endif; ?>
 
-<script src="atencion.js"></script>
+    <script src="atencion.js"></script>
 </body>
 </html>
