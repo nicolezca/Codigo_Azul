@@ -1,24 +1,25 @@
 <?php
 include('../../conexion/conexion.php');
 
+// Consultar las salas
 $sql = 'SELECT * FROM sala';
-
 $result = $conn->query($sql);
 
-$doctores = array(); // Creamos un arreglo para almacenar los datos de los médicos
+$salas = array(); // Un arreglo para almacenar los datos de las salas
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $identificaciones[] = $row['id'];
-        $salas[] = $row['nombre'];
-        $pisos[] = $row['piso'];
-        $estado[] = $row['disponible'];
-        $tipo[] = $row['tipo'];
-        $capacidadM[] = $row['capacidadMaxima'];
-        $ocupacion[] = $row['ocupacionActual'];
+        $salas[] = array(
+            'id' => $row['id'],
+            'nombre' => $row['nombre'],
+            'piso' => $row['piso'],
+            'tipo' => $row['tipo'],
+            'capacidadMaxima' => $row['capacidadMaxima'],
+            'ocupacionActual' => $row['ocupacionActual'],
+            'disponible' => $row['disponible'],
+        );
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -29,32 +30,9 @@ if ($result->num_rows > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/styles.css">
-    <title>Pacientes</title>
+    <title>Salas</title>
     <style>
-        .lista-pacientes-card {
-            position: absolute;
-            top: 50%;
-            left: 40%;
-            background-color: white;
-            box-shadow: 0 0 15px black;
-            padding: 20px 30px;
-            display: none;
-        }
-
-        .lista-pacientes-card .pacientes h3 {
-            margin-bottom: 20px;
-            padding: .5em 0;
-            border-bottom: 2px solid blue;
-        }
-
-        .lista-pacientes-card .pacientes #lista {
-            list-style: none;
-        }
-
-        #lista li {
-            font-family: monospace;
-            padding: 5px 0;
-        }
+        /* Estilos personalizados aquí */
     </style>
 </head>
 
@@ -65,65 +43,65 @@ if ($result->num_rows > 0) {
                 <i class='bx bx-plus-medical'></i>
             </div>
             <div class="titulo">
-                <span>PixelPionners</span>
+                <span>PixelPioneers</span>
                 <span>Hospital</span>
             </div>
         </a>
     </header>
     <nav>
         <div class="agregarDoc">
-            <button id="mostrarFormulario">nueva sala</button>
+            <button id="mostrarFormulario">Nueva sala</button>
         </div>
         <div class="filtrar">
             <i class='bx bx-filter-alt'></i>
             <input type="search" name="filter_name" id="filter_name" placeholder="Buscar por nombre">
-            <!-- falta hacer el filtro por estado de cada sala -->
             <select name="filter_estado" id="filter_estado">
                 <option value="">Todos</option>
-                <option value="ocupada">ocupada</option>
-                <option value="desocupada">desocupada</option>
+                <option value="ocupada">Ocupada</option>
+                <option value="desocupada">Desocupada</option>
             </select>
             <button id="aplicarFiltro">Aplicar Filtro</button>
         </div>
-
     </nav>
-    <?php if (isset($identificaciones) && count($identificaciones) > 0) : ?>
+
+    <?php if (isset($salas) && count($salas) > 0) : ?>
         <div class="container">
             <table id="Tabla">
                 <thead>
                     <tr>
-                        <th>identificacion</th>
-                        <th>sala</th>
-                        <th>piso</th>
-                        <th>tipo</th>
-                        <th id="telefono">capacidad Maxima</th>
-                        <th>ocupacion actual</th>
-                        <th>estado</th>
-                        <th>info</th>
+                        <th>Identificación</th>
+                        <th>Nombre</th>
+                        <th>Piso</th>
+                        <th>Tipo</th>
+                        <th>Capacidad Máxima</th>
+                        <th>Ocupación Actual</th>
+                        <th>Estado</th>
+                        <th>Información</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($identificaciones as $key => $id) : ?>
+                    <?php foreach ($salas as $sala) : ?>
                         <tr>
-                            <td><?php echo $id; ?></td>
-                            <td><?php echo $salas[$key]; ?></td>
-                            <td><?php echo $pisos[$key]; ?></td>
-                            <td><?php echo $tipo[$key]; ?></td>
-                            <td><?php echo $capacidadM[$key]; ?></td>
-                            <td><?php echo $ocupacion[$key]; ?></td>
+                            <td><?php echo $sala['id']; ?></td>
+                            <td><?php echo $sala['nombre']; ?></td>
+                            <td><?php echo $sala['piso']; ?></td>
+                            <td><?php echo $sala['tipo']; ?></td>
+                            <td><?php echo $sala['capacidadMaxima']; ?></td>
+                            <td><?php echo $sala['ocupacionActual']; ?></td>
                             <td>
-                                <?php if ($ocupacion[$key] < $capacidadM[$key]) : ?>
-                                    <span class="ver-pacientes-btn">hibilitado</span>
-                                <?php else : ?>
-                                    <span class='ver-pacientes-btn ocupado' disabled>Ocupado</span>
-                                <?php endif; ?>
+                                <?php
+                                if ($sala['ocupacionActual'] < $sala['capacidadMaxima']) {
+                                    echo '<span class="ver-pacientes-btn">Habilitada</span>';
+                                } else {
+                                    echo '<span class="ver-pacientes-btn ocupada" disabled>Ocupada</span>';
+                                }
+                                ?>
                             </td>
                             <td>
                                 <form id="mostrarInfoSalaForm" method="post" action="mostarInfoSala.php">
-                                    <input type="hidden" name="idSala" value="<?php echo $id; ?>">
-                                    <input type="submit" value="Informacion de Sala">
+                                    <input type="hidden" name="idSala" value="<?php echo $sala['id']; ?>">
+                                    <input type="submit" value="Información de Sala">
                                 </form>
-
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -147,21 +125,20 @@ if ($result->num_rows > 0) {
         <label for="estado">Estado de la Sala:</label>
         <input type="text" id="estado" name="estado" required autocomplete="off"><br><br>
 
-        <label for="estado">tipo de la Sala:</label>
+        <label for="tipo">Tipo de la Sala:</label>
         <select name="tipo" id="tipo">
-            <option value="sala">sala</option>
-            <option value="vaño">baño</option>
+            <option value="sala">Sala</option>
+            <option value="baño">Baño</option>
         </select><br><br>
 
-        <label for="capacidad">capacidad de la sala</label>
+        <label for="capacidad">Capacidad de la sala</label>
         <input type="text" id="capacidad" name="capacidad" required autocomplete="off"><br><br>
 
-        <label for="ocupacion">ocupacion Actual:</label>
+        <label for="ocupacion">Ocupación Actual:</label>
         <input type="text" id="ocupacion" name="ocupacion" required autocomplete="off"><br><br>
 
         <input type="submit" value="Agregar sala">
     </form>
-
 </body>
 <script src="salas.js"></script>
 
