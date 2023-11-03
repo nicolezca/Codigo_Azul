@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sala"]) && isset($_POS
                     $_SESSION['telefono_enfermero'] = $telefonoEnfermero;
 
                     // Redirige a la página de inicio
-                    header("Location: alertarpersonal.php");
+                    header("Location: ../inicio.php");
                     exit();
                 } else {
                     echo "No se encontró ningún enfermero con el ID proporcionado.";
