@@ -1,4 +1,13 @@
+
+
 <?php 
+/*
+
+    no se puede mandar mensajes a mas de una persona ya que para poder tener esta funcion se tiene que pagar un monto en la aplicacion de Wwilio 
+    solamente se puede mandar mensajes a la persona registrada en esa aplicacion y que sea el dueño del proyecto
+
+*/
+
 session_start();
 include('../../conexion/conexion.php');
 
