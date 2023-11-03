@@ -1,29 +1,47 @@
-<?php
+<?php 
 session_start();
-
 include('../../conexion/conexion.php');
 
-require_once '../../vendor/autoload.php';
-use Twilio\Rest\Client;
-$sid    = "AC6ae023acc63e1bfc7f260a0aa57c1cb9";
-$token  = "457bbf117fce8e0e8c3af4f49f586399";
-$twilio = new Client($sid, $token);
+    $nombreSala = $_SESSION['nombre'];
+    $telEnfer = $_SESSION['telefono_enfermero'];
+    $telDoc = $_SESSION['telefono_doctor'];
 
-$nombreSala = $_SESSION['nombre'];
-$telEnfer = $_SESSION['telefono_enfermero'];
-$telDoc = $_SESSION['telefono_doctor'];
+    // Lista de personal y sus números de teléfono
+$personal = array(
+    array('telefono' => $telDoc),
+    array('telefono' => $telEnfer),
+    // Agrega más personal aquí si es necesario
+);
 
+require '../../vendor/autoload.php';
 
-    $mensaje = 'Ha sido solicitado reportarse a la sala: ' . $nombreSala;    
-    $message = $twilio->messages
-    ->create(
-    "whatsapp:$telEnfer", // to
+// Configura tus credenciales de Twilio
+$sid = 'AC6ae023acc63e1bfc7f260a0aa57c1cb9';
+$token = 'e63f8ef422dd8dc2e67e9134479c43e5';
+$fromNumber = '+12255353683';
+
+// Crea un cliente Twilio
+$client = new Twilio\Rest\Client($sid, $token);
+
+foreach ($personal as $individuo) {
+    $destinatario = $individuo['telefono'];
+    $mensaje = 'Ha sido solicitado reportarse a la sala: ' . $nombreSala;
+
+    try {
+        $message = $client->messages->create(
+            $destinatario,
             array(
-                "from" => "whatsapp:+14155238886",
-                "body" => "$mensaje"
+                'from' => $fromNumber,
+                'body' => $mensaje
             )
         );
 
-        print($mensaje);
-        // Redirige a donde sea necesario después de enviar los mensajes
-//header("Location: ../inicio.php");
+        // Puedes registrar que se envió un mensaje  o realizar otras acciones aquí
+    } catch (Exception $e) {
+        // Captura y muestra cualquier error que ocurra
+        echo 'Error al enviar el mensaje: ' . $e->getMessage();
+    }
+}
+// Redirige a donde sea necesario después de enviar los mensajes
+header("Location: ../inicio.php");
+?>
