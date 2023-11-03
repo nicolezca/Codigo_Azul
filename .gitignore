@@ -1,0 +1,19 @@
+# Comentarios comienzan con el símbolo de almohadilla (#)
+
+# Ignora archivos generados automáticamente
+node_modules/
+build/
+dist/
+*.log
+
+# Ignora archivos de configuración locales
+.env
+
+# Ignora archivos de configuración de sistema
+.DS_Store
+Thumbs.db
+
+# Ignora archivos temporales o de respaldo
+*.swp
+*.bak
+*.tmp
