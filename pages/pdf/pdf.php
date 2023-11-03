@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_paciente"])) {
                 function PatientRecord($data , $historiaClinica)
                 {
     
-                    $this->Image('../../img/fondo_incial.jpg', 10, 40, 40);
+                    $this->Image('../../img/user_icon_img.png', 10, 40, 40);
                     $this->SetY(40);
     
                     // Datos personales del paciente
@@ -55,14 +55,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_paciente"])) {
                     $this->SetX(55);
                     $this->Cell(60, 10, 'Paciente: ' . $data['id'], 0, 1);
                     $this->SetX(55);
-                    $this->Cell(40, 10, 'Nombre: ' . mb_convert_encoding($data['nombre'], 'UTF-8'), 0, 0);
-                    $this->Cell(40, 10, 'Apellido: ' . mb_convert_encoding($data['apellido'], 'UTF-8'), 0, 1);
+                    $this->Cell(40, 15, 'Nombre: ' . mb_convert_encoding($data['nombre'], 'UTF-8'), 0, 0);
+                    $this->Cell(40, 15, 'Apellido: ' . mb_convert_encoding($data['apellido'], 'UTF-8'), 0, 1);
     
                     $this->SetX(55);
                     $this->Cell(35, 10, 'DNI: ' . $data['dni'], 0, 0);
                     $this->Cell(50, 10, 'Telefono: ' . $data['telefono'], 0, 0);
                     $this->Cell(50, 10, 'Obra Social: ' . mb_convert_encoding($data['obraSocial'], 'UTF-8'), 0, 1);
-                    $this->Ln(8);
+                    $this->Ln(15);
     
                     // Línea divisoria
                     $this->SetX(10);
