@@ -143,5 +143,3 @@ if (!isset($_SESSION["nombre"]) || !isset($_SESSION["clave"])) {
 </body>
 
 </html>
-
-<!-- el formulario funciona asi: se sube casi todos los datos(id,sala,paciente,fecha_inicio) a la tabla de sala_paciente mientras que el personal a asignar se sube en la tabla de sala_personal_asignado con el id del llamado -->
