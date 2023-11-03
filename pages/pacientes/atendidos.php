@@ -1,18 +1,17 @@
-<?php 
+<?php
 include('../../conexion/conexion.php');
 
-$sql = 'SELECT p.id,p.nombre,p.apellido,p.dni,p.telefono,p.obraSocial, h.contenido
+$sql = 'SELECT p.id, p.nombre, p.apellido, p.dni, p.telefono, p.obraSocial, h.contenido
         FROM paciente p
-        LEFT JOIN historia_clinica h ON p.id = h.idPaciente
-        WHERE p.estado = "atendido"
-        AND h.id IN (
-            SELECT MAX(id) FROM historia_clinica GROUP BY idPaciente
-        )';
+        LEFT JOIN (
+            SELECT idPaciente, MAX(id) AS max_id FROM historia_clinica GROUP BY idPaciente
+        ) hmax ON p.id = hmax.idPaciente
+        LEFT JOIN historia_clinica h ON hmax.idPaciente = h.idPaciente AND hmax.max_id = h.id
+        WHERE p.estado = "atendido"';
 
 $result = $conn->query($sql);
 
-$pacientes = array(); // Creamos un arreglo para almacenar los datos de los pacientes
-
+$pacientes = array();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $pacientes[] = array(
@@ -22,16 +21,16 @@ if ($result->num_rows > 0) {
             'dni' => $row['dni'],
             'telefono' => $row['telefono'],
             'obraSocial' => $row['obraSocial'],
-            'historiaClinica' => $row['contenido']
+            'historiaClinica' => $row['contenido'],
         );
     }
 }
-
 
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,8 +38,9 @@ if ($result->num_rows > 0) {
     <link rel="stylesheet" href="../css/styles.css">
     <title>Atendidos</title>
 </head>
+
 <body>
-<header>
+    <header>
         <a href="../../inicio/inicio.php">
             <div class="logo">
                 <i class='bx bx-plus-medical'></i>
@@ -63,33 +63,33 @@ if ($result->num_rows > 0) {
 
     </nav>
     <?php if (isset($pacientes) && count($pacientes) > 0) : ?>
-    <div class="container">
-        <table id="Tabla">
-            <thead>
-                <tr>
-                    <th>Identificación</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>DNI</th>
-                    <th>Teléfono</th>
-                    <th>Obra Social</th>
-                    <th>Historial Clínico</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($pacientes as $paciente) : ?>
+        <div class="container">
+            <table id="Tabla">
+                <thead>
                     <tr>
-                        <td><?php echo $paciente['id']; ?></td>
-                        <td><?php echo $paciente['nombre']; ?></td>
-                        <td><?php echo $paciente['apellido']; ?></td>
-                        <td><?php echo $paciente['dni']; ?></td>
-                        <td><?php echo $paciente['telefono']; ?></td>
-                        <td><?php echo $paciente['obraSocial']; ?></td>
-                        <td style="text-align: start;"><?php echo $paciente['historiaClinica']; ?></td>
+                        <th>Identificación</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>DNI</th>
+                        <th>Teléfono</th>
+                        <th>Obra Social</th>
+                        <th>Historial Clínico</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php foreach ($pacientes as $paciente) : ?>
+                        <tr>
+                            <td><?php echo $paciente['id']; ?></td>
+                            <td><?php echo $paciente['nombre']; ?></td>
+                            <td><?php echo $paciente['apellido']; ?></td>
+                            <td><?php echo $paciente['dni']; ?></td>
+                            <td><?php echo $paciente['telefono']; ?></td>
+                            <td><?php echo $paciente['obraSocial']; ?></td>
+                            <td style="text-align: start;"><?php echo $paciente['historiaClinica']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
     <?php else : ?>
         <!-- Mostrar un mensaje si no hay datos -->
@@ -99,7 +99,7 @@ if ($result->num_rows > 0) {
     <?php endif; ?>
 
     <!-- para la tabla sala_paciente y sala_personal_asignado -->
-    <form  action="altaPacientes.php"  id="formDoc" method="POST">
+    <form action="altaPacientes.php" id="formDoc" method="POST">
         <label for="paciente">Selecciona el paciente:</label>
         <select name="paciente" id="paciente">
             <?php
@@ -126,7 +126,5 @@ if ($result->num_rows > 0) {
 
 <form action="" method="post"></form>
 <script src="atendidos.js"></script>
+
 </html>
-
-
-<!-- cambiar nombre del archivo y reviar documentacion para la implementacion de una nueva seccion y la distribucion de partes  -->
