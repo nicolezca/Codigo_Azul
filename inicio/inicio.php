@@ -1,12 +1,26 @@
 <?php
 include('../conexion/conexion.php');
-
 session_start();
 
 // Verificar si no hay una sesión activa
 if (!isset($_SESSION["nombre"]) || !isset($_SESSION["clave"])) {
-    header("Location: ../login/formulario.html"); 
+    header("Location: ../login/formulario.html");
     exit();
+}
+
+function obtenerSalasDisponibles($conn){
+    $sql = "SELECT id, nombre FROM sala WHERE ocupacionActual < capacidadMaxima";
+    $result = $conn->query($sql);
+    return $result;
+}
+
+function obtenerPersonal($conn, $tipo){
+    $sql = "SELECT id, nombre, cargo FROM personal WHERE tipo = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $tipo);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result;
 }
 ?>
 
@@ -72,8 +86,7 @@ if (!isset($_SESSION["nombre"]) || !isset($_SESSION["clave"])) {
         </div>
     </div>
 
-
-    <!-- para la tabla llamado y llamado _personal-->
+    <!-- para la tabla llamado y llamado_personal -->
     <form id="formularioSala" action="php/alerta.php" method="POST">
         <label for="prioridad">Prioridad de Llamado:</label>
         <select name="prioridad" id="prioridad">
@@ -85,11 +98,7 @@ if (!isset($_SESSION["nombre"]) || !isset($_SESSION["clave"])) {
         <label for="sala">Selecciona una Sala:</label>
         <select name="sala" id="sala">
             <?php
-            // Consulta para obtener las salas disponibles
-            $sql = "SELECT id, nombre FROM sala WHERE ocupacionActual < capacidadMaxima";
-
-            $result = $conn->query($sql);
-
+            $result = obtenerSalasDisponibles($conn);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . "</option>";
@@ -104,10 +113,7 @@ if (!isset($_SESSION["nombre"]) || !isset($_SESSION["clave"])) {
         <label for="personal">Doctor a asignar:</label>
         <select name="doctor" id="doctor">
             <?php
-            // Consulta para obtener personal
-            $sql = "SELECT id, nombre, cargo FROM personal WHERE tipo = 'medico'";
-            $result = $conn->query($sql);
-
+            $result = obtenerPersonal($conn, 'medico');
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . '  ' . $row['cargo'] . "</option>";
@@ -120,10 +126,7 @@ if (!isset($_SESSION["nombre"]) || !isset($_SESSION["clave"])) {
         <label for="personal">Enfermero a asignar:</label>
         <select name="enfermero" id="enfermero">
             <?php
-            // Consulta para obtener personal
-            $sql = "SELECT id, nombre, tipo, cargo FROM personal WHERE tipo = 'enfermero'";
-            $result = $conn->query($sql);
-
+            $result = obtenerPersonal($conn, 'enfermero');
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . '  ' . $row['cargo'] . "</option>";
@@ -135,7 +138,7 @@ if (!isset($_SESSION["nombre"]) || !isset($_SESSION["clave"])) {
         <label for="fechaInicio">Fecha de Inicio:</label>
         <input type="datetime-local" name="fechaInicio" id="fechaInicio" required>
 
-        <input type="submit" value="hacer llamado">
+        <input type="submit" value="Hacer llamado">
     </form>
 
     <audio src="../img/tone-evacuation.mp3" id="sonido"></audio>

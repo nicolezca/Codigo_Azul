@@ -1,60 +1,67 @@
 <?php
 include('../../conexion/conexion.php');
 
+function obtenerNombreSala($conn, $salaId) {
+    $sql = "SELECT nombre FROM sala WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $salaId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['nombre'];
+    }
+    return null;
+}
+
+function obtenerTelefonoPersonal($conn, $personalId) {
+    $sql = "SELECT telefono FROM personal WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $personalId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['telefono'];
+    }
+    return null;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sala"]) && isset($_POST["fechaInicio"]) && isset($_POST["doctor"]) && isset($_POST["enfermero"]) && isset($_POST["prioridad"])) {
-    // Obtener los datos del formulario
-    $sala = $_POST['sala'];
-    $doctor = $_POST['doctor'];
+    $salaId = $_POST['sala'];
+    $doctorId = $_POST['doctor'];
     $fechaInicio = $_POST['fechaInicio'];
-    $enfermero = $_POST['enfermero'];
+    $enfermeroId = $_POST['enfermero'];
     $prioridad = $_POST['prioridad'];
 
-    // Primero, se inserta en la tabla llamado
-    $sql = "INSERT INTO llamado (idSala, fechaHoraInicio, prioridadLlamada) VALUES ('$sala', '$fechaInicio',  '$prioridad')";
+    $sql = "INSERT INTO llamado (idSala, fechaHoraInicio, prioridadLlamada) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iss", $salaId, $fechaInicio, $prioridad);
 
-    if ($conn->query($sql) === TRUE) {
-        $idLlamado = $conn->insert_id;
+    if ($stmt->execute()) {
+        $idLlamado = $stmt->insert_id;
 
-        // Consulta para obtener el nombre de la sala
-        $sqlSalaNombre = "SELECT nombre FROM sala WHERE id = $sala";
-        $resultSalaNombre = $conn->query($sqlSalaNombre);
+        $nombreSala = obtenerNombreSala($conn, $salaId);
 
-        if ($resultSalaNombre->num_rows > 0) {
-            $rowSalaNombre = $resultSalaNombre->fetch_assoc();
-            $nombreSala = $rowSalaNombre['nombre'];
+        if ($nombreSala !== null) {
+            $telefonoDoctor = obtenerTelefonoPersonal($conn, $doctorId);
+            $telefonoEnfermero = obtenerTelefonoPersonal($conn, $enfermeroId);
 
-            // Consulta para obtener el teléfono del doctor
-            $sqlTelefonoDoctor = "SELECT telefono FROM personal WHERE id = $doctor";
-            $resultTelefonoDoctor = $conn->query($sqlTelefonoDoctor);
+            if ($telefonoDoctor !== null && $telefonoEnfermero !== null) {
+                session_start();
+                $_SESSION['nombre'] = $nombreSala;
+                $_SESSION['telefono_doctor'] = $telefonoDoctor;
+                $_SESSION['telefono_enfermero'] = $telefonoEnfermero;
 
-            if ($resultTelefonoDoctor->num_rows > 0) {
-                $rowTelefonoDoctor = $resultTelefonoDoctor->fetch_assoc();
-                $telefonoDoctor = $rowTelefonoDoctor['telefono'];
-
-                // Consulta para obtener el teléfono del enfermero
-                $sqlTelefonoEnfermero = "SELECT telefono FROM personal WHERE id = $enfermero";
-                $resultTelefonoEnfermero = $conn->query($sqlTelefonoEnfermero);
-
-                if ($resultTelefonoEnfermero->num_rows > 0) {
-                    $rowTelefonoEnfermero = $resultTelefonoEnfermero->fetch_assoc();
-                    $telefonoEnfermero = $rowTelefonoEnfermero['telefono'];
-
-                    session_start();
-                    $_SESSION['nombre'] = $nombreSala;
-                    $_SESSION['telefono_doctor'] = $telefonoDoctor;
-                    $_SESSION['telefono_enfermero'] = $telefonoEnfermero;
-
-                    // Redirige a la página de inicio
-                    header("Location: ../inicio.php");
-                    exit();
-                } else {
-                    echo "No se encontró ningún enfermero con el ID proporcionado.";
-                }
+                header("Location: ../inicio.php");
+                exit();
             } else {
-                echo "No se encontró ningún doctor con el ID proporcionado.";
+                echo "No se encontró el teléfono de doctor o enfermero con el ID proporcionado.";
             }
         } else {
-            echo "No se encontró ninguna sala con el ID proporcionado.";
+            echo "No se encontró la sala con el ID proporcionado.";
         }
     } else {
         echo "Error al insertar el llamado: " . $conn->error;
