@@ -16,20 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    //muestra de pacientes en cards
-    const vercard = document.querySelectorAll(".ver-pacientes-btn");
-    const cardPacientes = document.getElementById("lista-paciente");
-
-    vercard.forEach((btn) => {
-        btn.addEventListener("click", () =>{
-            if(cardPacientes.style.display === "none" || cardPacientes.style.display=== ""){
-                cardPacientes.style.display="block";
-            }else{
-                cardPacientes.style.display="none";
-            }
-        });
-    });
-
 
 
     const filternameInput = document.getElementById("filter_name");
