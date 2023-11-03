@@ -1,20 +1,28 @@
 <?php
 include('../../conexion/conexion.php');
 
-$sql = 'SELECT * FROM personal WHERE tipo ="enfermero"';
-$result = $conn->query($sql);
+function obtenerEnfermeros($conn) {
+    $sql = 'SELECT * FROM personal WHERE tipo ="enfermero"';
+    $result = $conn->query($sql);
+    $enfermeros = array();
 
-$doctores = array(); // Creamos un arreglo para almacenar los datos de los médicos
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $identificaciones[] = $row['id'];
-        $enfermeros[] = $row['nombre'];
-        $apellidos[] = $row['apellido'];
-        $cargos[] = $row['cargo'];
-        $matriculas[] = $row['matricula'];
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $enfermero = array(
+                'identificacion' => $row['id'],
+                'nombre' => $row['nombre'],
+                'apellidos' => $row['apellido'],
+                'cargo' => $row['cargo'],
+                'matricula' => $row['matricula']
+            );
+            $enfermeros[] = $enfermero;
+        }
     }
+
+    return $enfermeros;
 }
+
+$enfermeros = obtenerEnfermeros($conn);
 ?>
 
 <!DOCTYPE html>
@@ -31,54 +39,54 @@ if ($result->num_rows > 0) {
 <body>
     <header>
         <a href="../../inicio/inicio.php">
-        <div class="logo">
-            <i class='bx bx-plus-medical'></i>
-        </div>
-        <div class="titulo">
-            <span>PixelPionners</span>
-            <span>Hospital</span>
-        </div>
+            <div class="logo">
+                <i class='bx bx-plus-medical'></i>
+            </div>
+            <div class="titulo">
+                <span>PixelPionners</span>
+                <span>Hospital</span>
+            </div>
         </a>
     </header>
     <nav>
         <div class="agregarDoc">
-            <button id="mostrarFormulario">nuevo enfermero</button>
+            <button id="mostrarFormulario">Nuevo enfermero</button>
         </div>
         <div class="filtrar">
             <i class='bx bx-filter-alt'></i>
-            <input type="search" name="filter_matricula" id="filter_matricula" placeholder="buscar por matricula">
+            <input type="search" name="filter_matricula" id="filter_matricula" placeholder="Buscar por matrícula">
             <button id="aplicarFiltro">Aplicar Filtro</button>
         </div>
     </nav>
-    <?php if (isset($identificaciones) && count($identificaciones) > 0) : ?>
-    <div class="container">
-        <table id="Tabla">
-            <thead>
-                <tr>
-                    <th>identificacion</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Cargo</th>
-                    <th>Matrícula</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($identificaciones as $key => $id) : ?>
+    <?php if (!empty($enfermeros)) : ?>
+        <div class="container">
+            <table id="Tabla">
+                <thead>
                     <tr>
-                        <td><?php echo $id; ?></td>
-                        <td><?php echo $enfermeros[$key]; ?></td>
-                        <td><?php echo $apellidos[$key]; ?></td>
-                        <td><?php echo $cargos[$key]; ?></td>
-                        <td><?php echo $matriculas[$key]; ?></td>
+                        <th>Identificación</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Cargo</th>
+                        <th>Matrícula</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    <?php foreach ($enfermeros as $enfermero) : ?>
+                        <tr>
+                            <td><?php echo $enfermero['identificacion']; ?></td>
+                            <td><?php echo $enfermero['nombre']; ?></td>
+                            <td><?php echo $enfermero['apellidos']; ?></td>
+                            <td><?php echo $enfermero['cargo']; ?></td>
+                            <td><?php echo $enfermero['matricula']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     <?php else : ?>
         <!-- Mostrar un mensaje si no hay datos -->
         <div class="container">
-            <p>No se han cargado ningun enfermero.</p>
+            <p>No se han cargado ningún enfermero.</p>
         </div>
     <?php endif; ?>
 
@@ -87,14 +95,14 @@ if ($result->num_rows > 0) {
         <input type="text" id="nombre" name="nombre" required autocomplete="off"><br><br>
 
         <label for="apellido">Apellidos del Enfermero:</label>
-        <input type="text" id="apellido" name="apellido" required autocomplete="off"><br><br>
-        
+        <input type="text" id="apellido" name "apellido" required autocomplete="off"><br><br>
+
         <label for="cargo">Cargo del Enfermero:</label>
         <input type="text" id="cargo" name="cargo" required autocomplete="off"><br><br>
-        
+
         <label for="matricula">Matrícula del Enfermero:</label>
         <input type="text" id="matricula" name="matricula" required autocomplete="off"><br><br>
-        
+
         <input type="submit" value="Agregar enfermero">
     </form>
 
