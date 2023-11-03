@@ -43,13 +43,7 @@ if (
                 // Cambiar el estado del paciente a "atendido" en la tabla paciente
                 $updatePacienteSql = "UPDATE paciente SET estado = 'atendido' WHERE id = $pacienteId";
                 if ($conn->query($updatePacienteSql) === TRUE) {
-                    // Actualizar la fechaHoraFin en la tabla llamado
-                    $updateLlamadoSql = "UPDATE llamado SET fechaHoraFin = '$fechaIngreso' WHERE fechaHoraFin = '0000-00-00 00:00:00' ORDER BY id DESC LIMIT 1";
-                    if ($conn->query($updateLlamadoSql) === TRUE) {
-                        header("Location: ../salas/salas.php");
-                    } else {
-                        echo "Error al actualizar la fechaHoraFin del llamado: " . $conn->error;
-                    }
+                    header("Location: ../salas/salas.php");
                 } else {
                     echo "Error al actualizar el estado del paciente: " . $conn->error;
                 }
