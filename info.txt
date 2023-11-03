@@ -1,11 +1,104 @@
-tarea para hacer:
+modificacion por hacer{
+    hecha_1{
+        cambiar la tabla de llamado donde se quitara la columna del paciente po temas de funcionalidad
+    }
+    hecha_2{
+        modificar el formulario del llamado asi corresponde a la tabla "llamado" y la subida de estos datos a la DB
+    }
+    hecha_3{
+        modificar la seccion de "tiempo de respuesta" ya que una columna de la tabla llamado ya no esta mas y tira error
+    }
+    hecha_4{
+        asignar a cada paciente a una sala
+    }
+    hecha_5{
+        asignar personal mediante los turnos y dias de cada uno siendo{
+            1 Doctor
+            2 Enfermeros
+        }
+    }
+    hecha_6{
+        funcion de agregar un historial nuevo a un paciente ya existente
+    }
+    hecha_7{
+        ver informacion de cada sala con sus paciente y personal 
+    }
+    hecha_8{
+        modificar formulario de creacion de paciente para poner predeterminado el estado del paciente
+    }
+    9{
+        tengo que cambiar el sistema de fechaHoraFin del llamado es cuando se atiende al paciente
+    }
+}
 
-en el llamado asignar varios personales en el formulario:
-    -tener en un formulario don secciones, la primera para informacion de llamado, y la segunda el personal a asignar
 
-tener una funcion nueva para ingresar a un paciente que ya esta registrado pero con una nuevo historial clinico 
+documentacion:
+1{
+    se modifico la tabla llamado donde no guardara el ID del paciente ya que cuando se hace un llamado puede pasar que al ingresar un paciente que todavia no esta en la DB no podrias sacar su ID 
+    aparte se modifico esta tabla para que despues al registrar el usuario se le pueda asignar una sala sin preocupacion de no tener el paciente documentado
+}
+2{
+    se hizo esta modificacion para que corresponde los datos cargados con la tabla y se modifico el archivo que sube esta informacion para guardar  los datos correspondientes sin errores
 
-poder ver  la sala con sus pacientes mendiante un boton para ver sus pacientes con su personal asignado
+    modificacion de elimar partes del codigo innecesarias por temas de funcionalidad dado que el formulario ya estan
+}
+3{
+    se tiene que modificar la seccion de "respuesta de atencion" porque esta trayendo una columna inexistente y esta tirando errores al mostar la tabla con los valores
+}
+4{
+    se creo un formulario para la asignacion del paciente a una sala con sus personal tomados por los dias y turnos de cada uno
+    para esto se tuvo que hacer un archivo donde registre en la DB estos cambios y los almacene el archivo modificara la Sala con la cantidad, el paciente con el estado y mostrar el personal asignado a esta sala
 
-para hacer el multiple seleccion del personal ver:
-https://github.com/habibmhamadi/multi-select-tag
+    error: no se guardaba como correspondia los datos   
+    solucion: configuracion apropiada a la asignacion de tablas mal puestas con los campos correspondientes
+}
+5{
+    para la creacion de esta implementacion se tuvo que traer el personal y en base a esto poder asignarles los turnos y dias correspondientes, se creo un formulario donde se cargara el paciente, la sala y el horario de atencion
+
+    error: insercion mal efectuada al colocarlos el DB por campos mal colocados y sematica mal aplicada
+    solucion: revision profunda del codigo y arreglos de estos errores, se soluciono rapidamente y ahora se sube a la DB 
+}
+6{
+    se creo un formulario donde trae al paciente y se le agrega un historial Clinico nuevo 
+    la carga de este se efectua correctamente sin problema ,se sube a la DB y se almacena, aparte se configuro para que al subir un historial nuevo se cambie el estado del paciente para que se correcto el proceso de nuevo ingreso
+}
+7{
+    crear un boton para mostrar esta informacion de la sala
+    para eso hacer unas consultas hacia la DB de la sala para mostar esta informacion en otra pagina
+
+    error: se funcionaba la multiconsulta con los JOINS siendo que no leia como se debe el identidicador de la sala
+
+    solucion :  se hizo consultas preparadas separadas respetando el identidicador de la sala
+                estas consultas hicieron una facilitaacion enorme al traer los datos de la DB
+}
+8{
+    se tiene que modificar el formulario ya que un paciente siempre tendra que tener su estado a espera para poder asignarle una sala despues
+    sino, de lo contrario tendria errores en funcionalides con la capacidad de sala o en que sala estara,ect 
+}
+9{
+    hare que la fechaInicio cuando se le asigna una sala al paciente sea la fechaHoraFin del llamado asi tengo ya el registro hecho
+}
+
+
+
+
+errores adicionales:{
+    no subia los pacientes a la base de datos 
+
+    solucion{
+        se tenia que eliminar el estado como elemento a cargar ya que se define predeterminado en la consulta y eso estaba generando error
+    }
+
+    problemas con la actualizacion de ocupacion actual de cada sala
+
+    solucion{
+        editar el archivo donde se da a atender el paciente para corroborar que al llamar a la sala estaba pegando los campos en otra tabla con una columna similar pero incorrecta haciendo eso que no modifique el contador al dar de alta o antedido
+    }
+
+    cambiar la consulta del pdf para sacar el historial clinico
+
+    solucion{
+        consulta de seleccion mediante la condicion de traer el ultimo registro que se creo mediante el ID del paciente 
+    }
+
+}
