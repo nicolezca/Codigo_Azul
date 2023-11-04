@@ -1,5 +1,6 @@
 <?php
 include('../conexion/conexion.php');
+
 session_start();
 
 // Verificar si no hay una sesión activa
@@ -33,10 +34,84 @@ function obtenerPersonal($conn, $tipo){
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="shortcut icon" href="../img/fondazo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .perfil{
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 10px 20px;
+            background-color: white;
+            border-radius: 0 0 0 20px;
+            box-shadow: 0 0 15px black;
+            z-index: 999999;
+        }
+        .perfil button{
+            background: none;
+            border: none;
+            outline: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: blue;
+            cursor: pointer;
+        }
+        .perfil button i{
+            font-size: 24px;
+        }
+
+        .cardSesion{
+            width: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            box-shadow:  0 0 15px black;
+            padding: 20px;
+            position: absolute;
+            top:   -100%;
+            left: calc(50% - 200px);
+            z-index: 9999;
+            background-color: white;
+            transition: all .3s ease-in-out;
+        }
+
+        .cardSesion i{
+            color: red;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .cardSesion span{
+            font-size: 24px;
+        }
+        .cardSesion #nombre{
+            font-weight: bold;
+        }
+        .cardSesion button{
+            margin-top: 10px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            outline: 1px solid transparent;
+            border:none;
+            background: blue;
+            color: white;
+            transition: all .3s ease-in-out;
+        }
+        .cardSesion button:hover{
+            background-color: transparent;
+            outline: 1px solid blue;
+            color: blue;
+        }
+    </style>
     <title>Home | Hospital</title>
 </head>
 
 <body>
+    <div class="perfil">
+        <button  id="CerrarSesion">
+        <i class='bx bxs-user-circle'></i>Cerrar Sesion
+        </button>
+    </div>
     <header class="header">
         <div class="top-bar">
             <div class="logo">
@@ -141,8 +216,21 @@ function obtenerPersonal($conn, $tipo){
         <input type="submit" value="Hacer llamado">
     </form>
 
+    <div class="cardSesion" id="cardSesion">
+        <i class='bx bx-error-alt'></i>
+        <span id="nombre"><?php echo $_SESSION["nombre"]?></span>
+        <span>Estas seguro de salir</span>
+        <button id="sesionCerrada" onclick="btncerrado()">Cerrar Sesion</button>
+    </div>
+
     <audio src="../img/tone-evacuation.mp3" id="sonido"></audio>
     <script src="js/main.js"></script>
+    <script src="js/rastreoInactividad.js"></script>
+    <script>
+        function btncerrado(){
+            window.location.href = 'php/CerrarRediregir.php';
+        }
+    </script>
 </body>
 
 </html>
