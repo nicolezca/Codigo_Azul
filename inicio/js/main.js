@@ -21,5 +21,23 @@ document.addEventListener("DOMContentLoaded",  () => {
             sonido.currentTime = 0;
         }, 8000);
     });
+
+    const btnSesion = document.getElementById('CerrarSesion');
+    const cardSesion = document.getElementById('cardSesion');
+    //const btnCerrarSesion = document.getElementById('sesionCerrada');
+
+    cardSesion.style.top = '-100%';
+
+    btnSesion.addEventListener('click', function() {
+        if(cardSesion.style.top === '-100%'){
+            cardSesion.style.top ='0%';
+        }else{
+            cardSesion.style.top = '-100%';
+        }
+    }
+    )
+
+
+
 });
 
