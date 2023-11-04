@@ -15,7 +15,6 @@ $result = $conn->query($sql);
 $identificaciones = [];
 $salas = [];
 $fechaInicios = [];
-$fechaFin = [];
 $tipoLlamado = [];
 
 if ($result->num_rows > 0) {
@@ -23,7 +22,6 @@ if ($result->num_rows > 0) {
         $identificaciones[] = $row['id'];
         $salas[] = $row['idSala'];
         $fechaInicios[] = $row['fechaHoraInicio'];
-        $fechaFin[] = $row['fechaHoraFin'];
         $tipoLlamado[] = $row['prioridadLlamada'];
     }
 }
@@ -72,7 +70,6 @@ if ($result->num_rows > 0) {
                         <th>Identificación</th>
                         <th>ID Sala</th>
                         <th>Fecha Inicio</th>
-                        <th>Fecha Finalización</th>
                         <th>Tipo de Llamado</th>
                     </tr>
                 </thead>
@@ -82,11 +79,6 @@ if ($result->num_rows > 0) {
                             <td><?php echo $id; ?></td>
                             <td><?php echo $salas[$key]; ?></td>
                             <td><?php echo $fechaInicios[$key]; ?></td>
-                            <?php if ($fechaFin[$key] == "0000-00-00 00:00:00") : ?>
-                                <td>No se finalizó</td>
-                            <?php else : ?>
-                                <td><?php echo $fechaFin[$key]; ?></td>
-                            <?php endif; ?>
                             <td><?php echo $tipoLlamado[$key]; ?></td>
                         </tr>
                     <?php endforeach; ?>
