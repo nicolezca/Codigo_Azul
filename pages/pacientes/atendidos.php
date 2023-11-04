@@ -1,6 +1,14 @@
 <?php
 include('../../conexion/conexion.php');
 
+session_start();
+
+// Verificar si no hay una sesión activa
+if (!isset($_SESSION["nombre"]) || !isset($_SESSION["clave"])) {
+    header("Location: ../../login/formulario.html");
+    exit();
+}
+
 $sql = 'SELECT p.id, p.nombre, p.apellido, p.dni, p.telefono, p.obraSocial, h.contenido
         FROM paciente p
         LEFT JOIN (
@@ -25,7 +33,6 @@ if ($result->num_rows > 0) {
         );
     }
 }
-
 ?>
 
 <!DOCTYPE html>

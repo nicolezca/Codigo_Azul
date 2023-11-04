@@ -1,6 +1,16 @@
 <?php
 // Tu conexión a la base de datos y consulta SQL
 include('../../conexion/conexion.php');
+
+session_start();
+
+// Verificar si no hay una sesión activa
+if (!isset($_SESSION["nombre"]) || !isset($_SESSION["clave"])) {
+    header("Location: ../../login/formulario.html");
+    exit();
+}
+
+
 include('infosala.php');
 
 // Cierra la conexión a la base de datos

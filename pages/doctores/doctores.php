@@ -1,6 +1,14 @@
 <?php
 include('../../conexion/conexion.php');
 
+session_start();
+
+// Verificar si no hay una sesión activa
+if (!isset($_SESSION["nombre"]) || !isset($_SESSION["clave"])) {
+    header("Location: ../../login/formulario.html");
+    exit();
+}
+
 function obtenerDoctores($conn) {
     $sql = 'SELECT * FROM personal WHERE tipo ="medico"';
     $result = $conn->query($sql);

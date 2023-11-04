@@ -1,6 +1,14 @@
 <?php
 include('../../conexion/conexion.php');
 
+session_start();
+
+// Verificar si no hay una sesión activa
+if (!isset($_SESSION["nombre"]) || !isset($_SESSION["clave"])) {
+    header("Location: ../../login/formulario.html");
+    exit();
+}
+
 $sql = 'SELECT id,nombre,apellido,dni,telefono,obraSocial,estado FROM paciente';
 $result = $conn->query($sql);
 
@@ -22,14 +30,6 @@ if ($result->num_rows > 0) {
         $sociales[] = $row['obraSocial'];
         $estados[] = $row['estado'];
     }
-}
-
-session_start();
-
-// Verificar si no hay una sesión activa
-if (!isset($_SESSION["nombre"]) || !isset($_SESSION["clave"])) {
-    header("Location: ../../login/formulario.html");
-    exit();
 }
 ?>
 
