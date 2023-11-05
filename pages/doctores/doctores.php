@@ -57,9 +57,11 @@ $doctores = obtenerDoctores($conn);
         </a>
     </header>
     <nav>
-        <div class="agregarDoc">
-            <button id="mostrarFormulario">Nuevo doctor</button>
-        </div>
+        <?php if(isset($_SESSION["tipo"]) && $_SESSION["tipo"]== "admin"){
+                echo '<div class="agregarDoc">
+                <button id="mostrarFormulario">Nuevo doctor</button>
+                </div>';
+            } ?>
         <div class="filtrar">
             <i class='bx bx-filter-alt'></i>
             <input type="search" name="filter_matricula" id="filter_matricula" placeholder="Buscar por matrícula">

@@ -88,10 +88,16 @@ if ($result->num_rows > 0) {
         </a>
     </header>
     <nav>
-        <div class="agregarDoc">
-            <button id="mostrarFormulario">nuevo paciente</button>
-            <button id="pacienteExistente">Nuevo Historial</button>
-        </div>
+        <?php if(isset($_SESSION["tipo"]) && $_SESSION["tipo"]== "admin"){
+            echo '
+            <div class="agregarDoc">
+                <button id="mostrarFormulario">nuevo paciente</button>
+                <button id="pacienteExistente">Nuevo Historial</button>
+            </div>
+            ';
+        } 
+
+        ?>
         <div class="filtrar">
             <i class='bx bx-filter-alt'></i>
             <input type="search" name="filter_dni" id="filter_dni" placeholder="Buscar por DNI">

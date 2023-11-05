@@ -2,7 +2,7 @@
 session_start();
 
 function validarInicioSesion($conn, $nombre, $clave) {
-    $sql = "SELECT * FROM usuario WHERE nombre = ? AND contrasena = ?";
+    $sql = "SELECT nombre, tipo FROM usuario WHERE nombre = ? AND contrasena = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ss", $nombre, $clave);
     $stmt->execute();
@@ -11,6 +11,12 @@ function validarInicioSesion($conn, $nombre, $clave) {
     if ($result->num_rows == 1) {
         $_SESSION["nombre"] = $nombre;
         $_SESSION["clave"] = $clave;
+
+        if ($_SESSION["nombre"] == $nombre) {
+            $row = $result->fetch_assoc();
+            $_SESSION["tipo"] = $row["tipo"];
+        }
+
         header("Location: ../../inicio/inicio.php");
         exit();
     } else {

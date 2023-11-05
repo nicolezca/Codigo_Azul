@@ -60,9 +60,14 @@ if ($result->num_rows > 0) {
     </header>
     <nav>
         <div class="filtrar">
-            <div class="agregarDoc">
-                <button id="mostrarFormulario">Dar de alta</button>
-            </div>
+            <?php if(isset($_SESSION["tipo"]) && $_SESSION["tipo"]== "admin"){
+                echo '
+                <div class="agregarDoc">
+                    <button id="mostrarFormulario">Dar de alta</button>
+                </div>
+                ';
+            }
+            ?>
             <i class='bx bx-filter-alt'></i>
             <input type="search" name="filter_dni" id="filter_dni" placeholder="Buscar por DNI">
             <button id="aplicarFiltro">Aplicar Filtro</button>

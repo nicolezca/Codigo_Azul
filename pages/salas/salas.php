@@ -57,9 +57,14 @@ if ($result->num_rows > 0) {
         </a>
     </header>
     <nav>
-        <div class="agregarDoc">
-            <button id="mostrarFormulario">Nueva sala</button>
-        </div>
+        <?php if(isset($_SESSION["tipo"]) && $_SESSION["tipo"]== "admin"){
+                echo '
+                <div class="agregarDoc">
+                <button id="mostrarFormulario">Nueva sala</button>
+                </div>
+
+                ';
+            } ?>
         <div class="filtrar">
             <i class='bx bx-filter-alt'></i>
             <input type="search" name="filter_name" id="filter_name" placeholder="Buscar por nombre">

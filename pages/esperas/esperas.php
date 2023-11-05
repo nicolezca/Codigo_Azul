@@ -118,9 +118,13 @@ $obraSocial = array_column($pacientes, 'obraSocial');
         </a>
     </header>
     <nav>
-        <div class="agregarDoc">
-            <button id="mostrarFormulario">Atender</button>
-        </div>
+        <?php if(isset($_SESSION["tipo"]) && $_SESSION["tipo"]== "admin"){
+            echo' 
+            <div class="agregarDoc">
+                <button id="mostrarFormulario">Atender</button>
+            </div>
+            ';
+        } ?>
     </nav>
     <?php if (!empty($identificaciones)) : ?>
         <div class="container">
