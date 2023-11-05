@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 function registrarUsuario($conn, $nombre, $clave, $tipo) {
     $sql = "INSERT INTO usuario (nombre, contrasena, tipo) VALUES (?, ?, ?)";
@@ -7,7 +6,11 @@ function registrarUsuario($conn, $nombre, $clave, $tipo) {
     $stmt->bind_param("sss", $nombre, $clave, $tipo);
 
     if ($stmt->execute()) {
-        return true;
+        session_start();
+        $_SESSION['nombre'] = $nombre;
+        $_SESSION['clave'] = $clave;
+        $_SESSION['tipo'] = $tipo;
+        return true; 
     } else {
         return false;
     }
@@ -32,10 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nombreingreso"]) && is
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
-            echo "El nombre de usuario ya está registrado.";
+            echo "El nombre de usuario ya está registrado. <a href='login.php'>Volver a intentar</a>";
         } else {
             if (registrarUsuario($conn, $nombre, $clave, $tipo)) {
-                echo "Registro exitoso";
                 header("Location: ../../inicio/inicio.php");
                 exit();
             } else {
