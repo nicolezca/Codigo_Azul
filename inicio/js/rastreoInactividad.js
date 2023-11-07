@@ -11,7 +11,7 @@ function startInactivityTimer() {
             .catch(error => {
                 console.error('Error al cerrar la sesión:', error);
             });
-    },46800); // 1 hora 30 media en milisegundos
+    },5400000); // 1 hora 30 media en milisegundos
 }
 
 function resetInactivityTimer() {
